@@ -78,12 +78,12 @@ npm run start
 
 ## 🌐 Deploy to Vercel
 
-Detour includes a ready-to-deploy configuration for [Vercel](https://vercel.com):
+Detour is built with Next.js 16 and deploys seamlessly on [Vercel](https://vercel.com):
 
-1. Push your changes to GitHub.
-2. Go to [Vercel](https://vercel.com/new) and click **Import** for the `detour` repository.
-3. If setting Root Directory, select `detour-app` (or leave default root as `vercel.json` automatically orchestrates the build).
-4. Click **Deploy**.
+1. Go to [Vercel](https://vercel.com/new) and click **Import** for the `detour` repository.
+2. Vercel automatically detects the Next.js application in `detour-app`.
+3. Keep default settings (Root Directory: `detour-app`) and click **Deploy**.
+4. Vercel will install dependencies and create the production deployment with zero manual configuration required.
 
 ---
 

@@ -33,18 +33,10 @@ export default function RetroDatePicker({
 }: RetroDatePickerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [today, setToday] = useState<Date>(() => new Date(2026, 10, 12));
+  const [today] = useState<Date>(() => (typeof window !== 'undefined' ? startOfToday() : new Date(2026, 10, 12)));
   const [viewMonth, setViewMonth] = useState<Date>(() =>
-    pickup ? new Date(parseIsoDate(pickup)) : new Date(2026, 10, 1)
+    pickup ? new Date(parseIsoDate(pickup)) : (typeof window !== 'undefined' ? startOfToday() : new Date(2026, 10, 1))
   );
-
-  useEffect(() => {
-    const current = startOfToday();
-    setToday(current);
-    if (!pickup) {
-      setViewMonth(current);
-    }
-  }, [pickup]);
 
   // Click outside to close
   useEffect(() => {

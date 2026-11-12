@@ -1,5 +1,0 @@
-{
-  "buildCommand": "cd detour-app && npm run build",
-  "outputDirectory": "detour-app/.next",
-  "framework": "nextjs"
-}

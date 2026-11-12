@@ -40,7 +40,7 @@ export default function LocationsPage() {
             </h2>
           </div>
           <p className="text-sm text-[#d8e3fb] mt-4 sm:mt-6 leading-relaxed max-w-md">
-            Our prime depots in Mumbai, Delhi NCR, Bengaluru, Goa, Hyderabad, Kolkata, and Jaipur offer seamless access to India's finest national highways, mountain ghats, and coastal drives.
+            Our prime depots in Mumbai, Delhi NCR, Bengaluru, Goa, Hyderabad, Kolkata, and Jaipur offer seamless access to India&apos;s finest national highways, mountain ghats, and coastal drives.
           </p>
         </div>
         <div className="relative h-56 sm:h-64 md:h-auto md:col-span-6 bg-[#18274b]">

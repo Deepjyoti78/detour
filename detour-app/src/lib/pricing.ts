@@ -1,5 +1,5 @@
 import { Car, Quote, Trip } from '@/types';
-import { CARS, LOCATIONS } from './data';
+import { LOCATIONS } from './data';
 
 const ONE_DAY_MS = 86_400_000;
 
