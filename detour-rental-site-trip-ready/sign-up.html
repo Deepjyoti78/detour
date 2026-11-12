@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create a local Detour demo profile for your rental.">
+  <title>Create account | Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="account.css">
+  <script defer src="site.js"></script>
+  <script defer src="account.js"></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="account-layout" id="main-content">
+    <section class="account-content" aria-labelledby="account-title">
+      <a class="account-back" href="index.html"><span aria-hidden="true">←</span> Back to Detour</a>
+      <h1 id="account-title">CREATE AN<br>ACCOUNT.</h1>
+      <p class="account-intro">Save a name and email for your demo rentals on this device.</p>
+
+      <form class="account-form" data-account-form="sign-up" method="post">
+        <label for="account-name">Full name</label>
+        <input id="account-name" name="name" type="text" autocomplete="name" placeholder="Maya Chen" maxlength="80" required>
+        <label for="account-email">Email address</label>
+        <input id="account-email" name="email" type="email" autocomplete="email" placeholder="maya@example.com" maxlength="254" aria-describedby="account-note" required>
+        <p class="account-error" data-account-error role="alert" hidden></p>
+        <button class="account-submit" type="submit" disabled>Create demo profile <span aria-hidden="true">→</span></button>
+      </form>
+      <noscript><p>Enable JavaScript to create a demo profile.</p></noscript>
+      <p class="account-switch">Already have a profile? <a data-account-switch href="sign-in.html">Sign in</a></p>
+      <p class="account-note" id="account-note">This demo uses no password. Your profile stays in this browser, and you can use a sample email.</p>
+    </section>
+
+    <figure class="account-visual account-visual--gorge">
+      <img src="assets/gorge-landscape.jpg" alt="Illustration of the Columbia River winding between wooded bluffs">
+      <figcaption>
+        <div><strong>Columbia River Gorge</strong><span>Illustrative landscape</span></div>
+        <a href="explore.html">Explore drives <span aria-hidden="true">→</span></a>
+      </figcaption>
+    </figure>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

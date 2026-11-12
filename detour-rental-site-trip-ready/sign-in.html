@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sign in to a local Detour demo profile and view your rental.">
+  <title>Sign in | Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="account.css">
+  <script defer src="site.js"></script>
+  <script defer src="account.js"></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="account-layout" id="main-content">
+    <section class="account-content" aria-labelledby="account-title">
+      <a class="account-back" href="index.html"><span aria-hidden="true">←</span> Back to Detour</a>
+      <h1 id="account-title">SIGN IN.</h1>
+      <p class="account-intro">Use your demo profile to view your rental and pick-up details.</p>
+
+      <form class="account-form" data-account-form="sign-in" method="post">
+        <label for="account-email">Email address</label>
+        <input id="account-email" name="email" type="email" autocomplete="email" placeholder="maya@example.com" maxlength="254" aria-describedby="account-note" required>
+        <p class="account-error" data-account-error role="alert" hidden></p>
+        <button class="account-submit" type="submit" disabled>Sign in <span aria-hidden="true">→</span></button>
+      </form>
+      <noscript><p>Enable JavaScript to use your demo profile.</p></noscript>
+      <p class="account-switch">New to Detour? <a data-account-switch href="sign-up.html">Create a demo profile</a></p>
+      <p class="account-note" id="account-note">This demo uses no password. Your profile stays in this browser, and you can use a sample email.</p>
+    </section>
+
+    <figure class="account-visual account-visual--sunset">
+      <img src="assets/sunset.jpg" alt="A red classic car beside a field at sunset" width="1671" height="941">
+      <figcaption>
+        <div><strong>The Classic</strong><span>4 seats · Manual</span></div>
+        <a href="fleet.html">Explore the fleet <span aria-hidden="true">→</span></a>
+      </figcaption>
+    </figure>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

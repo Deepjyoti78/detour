@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review &amp; book | Detour</title>
+  <meta name="description" content="Choose your dates, review the total, and confirm a demo Detour rental.">
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="booking.css">
+  <script src="site.js" defer></script>
+  <script src="booking.js" defer></script>
+</head>
+<body data-booking-page="checkout">
+  <header data-site-header></header>
+  <main class="booking-page" id="main-content">
+    <nav class="booking-topline" aria-label="Booking progress">
+      <a class="booking-back" id="booking-back" href="fleet.html">← Back to cars</a>
+      <ol class="booking-steps" id="checkout-steps">
+        <li><span>1</span> Car</li>
+        <li aria-current="step"><span>2</span> Review</li>
+        <li><span>3</span> Confirmed</li>
+      </ol>
+    </nav>
+    <section class="booking-empty" id="booking-edit-unavailable" aria-labelledby="booking-edit-unavailable-title" hidden>
+      <h1 class="booking-title" id="booking-edit-unavailable-title" tabindex="-1">EDIT UNAVAILABLE.</h1>
+      <p class="booking-intro" id="booking-edit-unavailable-message"></p>
+      <a class="booking-action" href="my-booking.html">Go to My Booking <span aria-hidden="true">→</span></a>
+    </section>
+    <div class="booking-layout" id="checkout-layout">
+      <section aria-labelledby="booking-title">
+        <h1 id="booking-title" class="booking-title">REVIEW &amp; BOOK.</h1>
+        <p class="booking-intro" id="checkout-intro">Check your dates and rental total, then confirm your reservation.</p>
+        <p class="booking-edit-reference" id="checkout-reference" hidden></p>
+        <noscript><p>The demo reservation form requires JavaScript.</p></noscript>
+        <form class="booking-form" id="booking-form" method="post">
+          <section class="booking-group" aria-labelledby="trip-heading">
+            <h2 id="trip-heading">Trip details</h2>
+            <div class="booking-fields">
+              <label for="booking-car">Car <select id="booking-car" name="car" required><option value="">Choose a car</option></select></label>
+              <label for="booking-location">Pick-up and return <select id="booking-location" name="location" required></select></label>
+              <label for="booking-pickup">Pick-up date <input id="booking-pickup" name="pickup" type="date" required></label>
+              <label for="booking-return">Return date <input id="booking-return" name="return" type="date" required></label>
+            </div>
+          </section>
+          <div class="booking-availability" id="booking-availability" hidden>
+            <p id="booking-availability-message" role="status"></p>
+            <button class="booking-action booking-action--outline" id="booking-nearby" type="button" hidden></button>
+            <a class="booking-alternatives" href="fleet.html" id="booking-other-cars" hidden>Browse other cars</a>
+          </div>
+          <section class="booking-group" aria-labelledby="driver-heading">
+            <h2 id="driver-heading">Driver details</h2>
+            <div class="booking-fields">
+              <label for="driver-name">Full name <input id="driver-name" name="name" type="text" autocomplete="name" placeholder="Maya Chen" maxlength="120" required></label>
+              <label for="driver-email">Email address <input id="driver-email" name="email" type="email" autocomplete="email" placeholder="maya@example.com" maxlength="254" required></label>
+            </div>
+          </section>
+          <p class="booking-note" id="checkout-note">Use sample details. This demo saves the most recent reservation in this browser.</p>
+          <p class="booking-note"><a href="faq.html">Read the rental FAQ</a> for driver requirements, fees, and changes.</p>
+          <p class="booking-error" id="booking-error" role="alert" hidden></p>
+          <button class="booking-action booking-action--full" id="confirm-booking" type="submit" disabled><span id="checkout-submit-label">Confirm demo booking</span><span aria-hidden="true">→</span></button>
+        </form>
+      </section>
+      <aside class="booking-ticket booking-ticket--checkout" id="rental-summary" tabindex="-1" aria-label="Rental summary">
+        <div class="booking-photo" data-summary-photo hidden><img alt=""></div>
+        <div class="booking-ticket-body" aria-live="polite">
+          <h2 id="summary-car">Rental summary</h2>
+          <p id="summary-location" class="booking-station">Choose a car and dates for a price estimate.</p>
+          <p class="booking-drive" id="summary-drive" hidden></p>
+          <div class="booking-route" id="summary-route" hidden>
+            <div><span>Pick-up</span><strong id="summary-pickup"></strong></div>
+            <div><span>Return</span><strong id="summary-return"></strong></div>
+          </div>
+          <dl class="booking-costs" id="summary-costs" hidden>
+            <div><dt id="summary-rate">Rental</dt><dd id="summary-subtotal"></dd></div>
+            <div><dt>Sample taxes and fees</dt><dd id="summary-fees"></dd></div>
+            <div class="booking-total"><dt id="summary-total-label">Estimated total</dt><dd id="summary-total"></dd></div>
+            <div class="booking-previous-total" id="summary-previous-total-row" hidden><dt>Current reservation total</dt><dd id="summary-previous-total"></dd></div>
+          </dl>
+          <p class="booking-ticket-note">Demo only. No payment is collected.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="mobile-booking-bar" id="mobile-booking-bar" hidden>
+      <div><strong id="mobile-booking-total"></strong><span id="mobile-booking-dates"></span></div>
+      <a href="#rental-summary" class="booking-action">View price</a>
+    </div>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

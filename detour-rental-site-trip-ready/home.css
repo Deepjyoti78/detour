@@ -1,0 +1,270 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: HK, sans-serif;
+  background: var(--paper);
+}
+
+a { color: inherit; text-decoration: none; }
+
+button, input { font: inherit; }
+button, summary { cursor: pointer; }
+:focus-visible { outline: 2px solid #4169b5; outline-offset: 4px; }
+.skip-link { position: absolute; top: 8px; left: 5vw; z-index: 1; padding: 9px 14px; background: var(--yellow); transform: translateY(-160%); }
+.skip-link:focus { transform: translateY(0); }
+
+.hero {
+  min-height: 941px;
+  background: #c59049 url("assets/sunset.jpg") center center / cover no-repeat;
+}
+
+.planner {
+  width: 496px;
+  max-width: 90vw;
+  margin: 75px 5vw 0;
+  padding-bottom: 48px;
+}
+
+.cover {
+  padding: 33px 38px 39px;
+  background: var(--blue);
+  color: var(--paper);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 25px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.category::after {
+  flex: 1;
+  height: 1px;
+  background: #94a6ca;
+  content: "";
+}
+
+h1 {
+  margin: 0;
+  font: 100px/.99 Anton, sans-serif;
+  letter-spacing: -.008em;
+}
+
+h1 span { display: block; color: var(--yellow); }
+
+.ticket {
+  position: relative;
+  padding: 31px 38px 34px;
+  background: var(--paper);
+}
+
+.ticket::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-top: 2px dashed #b6a581;
+  content: "";
+}
+
+.route {
+  position: relative;
+  display: grid;
+  gap: 22px;
+  padding-left: 27px;
+}
+
+.route::before {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  height: 80px;
+  border-left: 1px solid #5270a1;
+  content: "";
+}
+
+.stop { position: relative; }
+
+.stop::before {
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: -27px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  background: var(--paper);
+  content: "";
+}
+
+.stop:first-child::before { background: var(--blue); }
+
+.dates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+
+.field {
+  display: grid;
+  gap: 7px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #8c91a0;
+  color: #4d576a;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.input svg { width: 17px; height: 17px; color: var(--ink); }
+.input input {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 26px;
+  padding: 15px 18px;
+  border: 0;
+  background: var(--yellow);
+  color: var(--ink);
+  font: 700 21px/1.2 HK, sans-serif;
+}
+
+.search svg { width: 25px; height: 22px; }
+
+.section-shell { width: 90vw; margin: 0 auto; }
+
+.fleet-preview { padding: 82px 0 87px; }
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  margin-bottom: 31px;
+}
+
+.section-title {
+  margin: 0;
+  font: 73px/1.06 Anton, sans-serif;
+  letter-spacing: -.012em;
+}
+
+.section-note { margin: 9px 0 0; color: var(--muted); font-size: 20px; }
+
+.action {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+  min-height: 47px;
+  padding: 11px 15px;
+  font-size: 17px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.action--outline { border: 1px solid currentColor; }
+.action--yellow { background: var(--yellow); color: var(--ink); }
+.action:hover { text-decoration: underline; }
+.action span { font-size: 22px; line-height: 1; }
+
+.fleet-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.vehicle-card { overflow: hidden; border: 1px solid var(--rule); }
+.vehicle-image { display: block; width: 100%; height: 245px; object-fit: cover; }
+.classic-frame { height: 245px; background: url("assets/sunset.jpg") 74% 78% / 245% auto no-repeat; }
+.vehicle-meta { display: flex; justify-content: space-between; align-items: end; gap: 14px; padding: 18px 19px; }
+.vehicle-meta h3 { margin: 0 0 2px; font: 31px/1.05 Anton, sans-serif; }
+.vehicle-meta p { margin: 0; color: var(--muted); font-size: 16px; }
+.vehicle-meta .rate { color: var(--ink); white-space: nowrap; }
+.rate strong { font-size: 25px; }
+[hidden] { display: none !important; }
+
+.explore-band { padding: 72px 0; background: var(--blue); color: var(--paper); }
+.explore-grid { display: grid; grid-template-columns: minmax(0, .76fr) minmax(0, 1.24fr); gap: 6vw; align-items: center; }
+.explore-location { margin: 0 0 16px; color: #d8e3fb; font-size: 15px; font-weight: 700; }
+.explore-title { color: var(--paper); font-size: 82px; }
+.explore-title span { color: var(--yellow); }
+.explore-copy { max-width: 393px; margin: 20px 0 26px; color: #f2eedf; font-size: 21px; line-height: 1.4; }
+.gorge { margin: 0; }
+.gorge img { display: block; width: 100%; height: 361px; object-fit: cover; object-position: center 54%; }
+.gorge figcaption { display: flex; justify-content: space-between; gap: 15px; padding-top: 13px; font-size: 15px; }
+.gorge figcaption span:last-child { color: #d8e3fb; }
+.how-to { padding: 75px 0 86px; }
+.how-to .section-heading { margin-bottom: 38px; }
+.booking-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); list-style: none; padding: 0; margin: 0; }
+.booking-steps li { position: relative; padding-right: 34px; }
+.booking-steps li:not(:last-child)::after { position: absolute; top: 19px; left: 45px; right: 8px; border-top: 1px dashed #7d8aa8; content: ""; }
+.step-number { display: grid; place-items: center; width: 38px; height: 38px; background: var(--yellow); color: var(--ink); border: 1px solid var(--blue); border-radius: 50%; font-weight: 700; }
+.booking-steps h3 { margin: 14px 0 5px; font-size: 24px; }
+.booking-steps p { max-width: 325px; margin: 0; color: var(--muted); font-size: 18px; line-height: 1.35; }
+
+@media (max-width: 980px) {
+  .explore-grid { gap: 4vw; }
+  .section-title { font-size: 64px; }
+  .vehicle-image, .classic-frame { height: 182px; }
+  .vehicle-meta { align-items: start; flex-direction: column; }
+}
+
+@media (max-width: 740px) {
+  .hero { min-height: 0; position: relative; isolation: isolate; padding-bottom: 1px; background: var(--paper); }
+  .hero::before { position: absolute; z-index: -1; inset: 0 0 auto; height: 390px; background: #c59049 url("assets/sunset.jpg") 65% center / cover no-repeat; content: ""; }
+  .planner { margin-top: 245px; padding-bottom: 0; }
+  .cover, .ticket { padding-right: 23px; padding-left: 23px; }
+  h1 { font-size: clamp(58px, 16vw, 100px); }
+  .dates { gap: 13px; }
+  .input { font-size: 15px; }
+  .fleet-preview, .explore-band, .how-to { padding: 48px 0; }
+  .section-title { font-size: 53px; }
+  .section-heading { align-items: start; flex-direction: column; }
+  .fleet-grid, .explore-grid { grid-template-columns: 1fr; }
+  .gorge img { height: 260px; }
+  .vehicle-image, .classic-frame { height: 220px; }
+  .vehicle-meta { align-items: end; flex-direction: row; }
+  .booking-steps { grid-template-columns: 1fr; gap: 22px; }
+  .booking-steps li::after { display: none; }
+}
+
+.hero .site-header-inner { min-height: 0; padding-top: 42px; border: 0; }
+.hero .site-brand { color: var(--paper); font-size: 41px; }
+.hero .site-brand svg { width: 46px; height: 35px; }
+.hero .site-navigation { gap: 15px; padding: 5px 8px 5px 12px; color: var(--ink); background: var(--paper); }
+.hero .site-navigation .account-link { padding: 12px 13px; }
+.planner { scroll-margin-top: 180px; }
+.trip-error { margin: 15px 0 0; color: #95292a; font-size: 15px; }
+.planner-drive { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 13px; margin-bottom: 22px; border-left: 3px solid var(--blue); background: #f1e6c7; }
+.planner-drive span { display: block; color: var(--muted); font-size: 13px; }
+.planner-drive strong { display: block; margin-top: 2px; font-size: 16px; }
+.planner-drive button { border: 0; padding: 5px 0 5px 5px; background: transparent; color: var(--ink); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+.input select { width: 100%; min-width: 0; padding: 0; border: 0; background: transparent; color: inherit; }
+.vehicle-card { display: block; }
+.vehicle-card:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 740px) {
+  .hero .site-header-inner { padding-top: 21px; }
+  .hero .site-brand { font-size: 30px; }
+  .hero .site-brand svg { width: 34px; height: 28px; }
+  .hero .site-navigation { gap: 9px 12px; font-size: 13px; }
+  .hero .site-navigation .account-link { padding: 5px 8px; }
+  .hero .planner { margin-top: 210px; scroll-margin-top: 16px; }
+}

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trip pack | Detour</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="trip-pack.css">
+  <script src="site.js" defer></script>
+  <script src="trip-pack.js" defer></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="trip-pack">
+    <nav class="pack-actions" aria-label="Trip pack actions">
+      <a href="my-booking.html">← My booking</a>
+      <button type="button" id="print-pack" hidden>Print or save PDF</button>
+    </nav>
+    <div id="pack-sheet" hidden>
+      <div class="pack-cover"><div><p>DETOUR · DEMO RENTAL</p><h1>TRIP PACK.</h1></div><div><span>Booking reference</span><strong id="pack-reference"></strong></div></div>
+      <dl class="pack-facts">
+        <div><dt>Car</dt><dd id="pack-car"></dd></div>
+        <div><dt>Pick-up and return</dt><dd id="pack-location"></dd></div>
+        <div><dt>Pick-up date</dt><dd id="pack-pickup"></dd></div>
+        <div><dt>Return date</dt><dd id="pack-return"></dd></div>
+      </dl>
+      <div class="pack-columns">
+        <section><h2>Pick-up checklist</h2><ul id="pack-checklist"></ul><p>Confirm the exact branch address and opening hours with the operator before travel.</p></section>
+        <section><h2>Scenic itinerary</h2><p id="pack-drive"></p><ol id="pack-stops"></ol></section>
+      </div>
+      <p class="pack-note">Prepared from your local Detour demo reservation.</p>
+    </div>
+    <section id="pack-empty"><h1>TRIP PACK.</h1><p>Confirm a demo reservation to create a trip pack.</p><a href="fleet.html">Browse the fleet →</a></section>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

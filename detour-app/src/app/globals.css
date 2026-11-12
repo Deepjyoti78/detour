@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Anton';
+  src: url('/assets/Anton-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HK';
+  src: url('/assets/HKGrotesk-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HK';
+  src: url('/assets/HKGrotesk-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@theme {
+  --color-paper: #faf2db;
+  --color-blue: #203a78;
+  --color-ink: #18274b;
+  --color-yellow: #fce466;
+  --color-muted: #47516a;
+  --color-rule: #a9aa9c;
+  --color-light-blue: #d8e3fb;
+  --font-anton: 'Anton', sans-serif;
+  --font-hk: 'HK', sans-serif;
+}
+
+:root {
+  --paper: #faf2db;
+  --blue: #203a78;
+  --ink: #18274b;
+  --yellow: #fce466;
+  --muted: #47516a;
+  --rule: #a9aa9c;
+  --light-blue: #d8e3fb;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: clip;
+}
+
+body {
+  background-color: #faf2db;
+  color: #18274b;
+  font-family: 'HK', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Hard retro button 3D depth and shadow effects with smooth sliding translation */
+.btn-tactile-yellow {
+  background-color: #fce466;
+  color: #18274b;
+  border: 2px solid #18274b;
+  box-shadow: 3px 3px 0px #18274b;
+  font-weight: 700;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.btn-tactile-yellow:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px #18274b;
+}
+
+.btn-tactile-yellow:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #18274b;
+  transition-duration: 0.08s;
+}
+
+.btn-tactile-outline {
+  background-color: transparent;
+  color: #18274b;
+  border: 2px solid #18274b;
+  box-shadow: 3px 3px 0px #18274b;
+  font-weight: 700;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.btn-tactile-outline:hover {
+  background-color: rgba(24, 39, 75, 0.06);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px #18274b;
+}
+
+.btn-tactile-outline:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #18274b;
+  transition-duration: 0.08s;
+}
+
+/* Vintage ticket perforation */
+.ticket-perforation {
+  position: relative;
+}
+
+.ticket-perforation::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 2px dashed #b6a581;
+}
+
+/* Card hover tactile lift with smooth sliding physics */
+.card-tactile {
+  border: 1px solid #a9aa9c;
+  background: #faf2db;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  will-change: transform, box-shadow;
+}
+
+.card-tactile:hover {
+  border-color: #18274b;
+  transform: translateY(-5px);
+  box-shadow: 7px 7px 0px #18274b;
+}
+
+.card-tactile:active {
+  transform: translateY(2px);
+  box-shadow: 2px 2px 0px #18274b;
+  transition-duration: 0.1s;
+}
+
+@media print {
+  header, footer, nav, button, .no-print {
+    display: none !important;
+  }
+  body {
+    background: #faf2db !important;
+    color: #18274b !important;
+  }
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fleet | Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="catalog.css">
+  <script src="site.js" defer></script>
+  <script src="catalog.js" defer></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="catalog">
+    <div class="catalog-intro">
+      <h1>MEET THE FLEET.</h1>
+      <p>Compare the cars, then choose one for your trip.</p>
+    </div>
+    <div class="trip-strip" id="catalog-trip" hidden></div>
+    <div class="catalog-toolbar">
+      <div class="catalog-filters" role="group" aria-label="Filter by transmission">
+        <button type="button" data-filter="all" aria-pressed="true">All cars</button>
+        <button type="button" data-filter="automatic" aria-pressed="false">Automatic</button>
+        <button type="button" data-filter="manual" aria-pressed="false">Manual</button>
+      </div>
+      <div class="catalog-toolbar-actions">
+        <p id="catalog-count" aria-live="polite"></p>
+        <a class="compare-link" href="compare.html">Compare cars <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <section class="catalog-grid" id="catalog-grid" aria-label="Rental cars"></section>
+    <div class="catalog-more"><span>Still deciding where to go?</span><a href="explore.html">Explore drives from Portland →</a></div>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My booking | Detour</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="booking.css">
+  <script src="site.js" defer></script>
+  <script src="booking.js" defer></script>
+</head>
+<body data-booking-page="manage">
+  <header data-site-header></header>
+  <main class="booking-page" id="main-content">
+    <div class="booking-topline"><a class="booking-back" href="index.html">← Back to home</a></div>
+    <noscript><p>Enable JavaScript to view your local demo reservation.</p></noscript>
+    <div class="booking-layout booking-layout--receipt" id="booking-record" hidden>
+      <section class="booking-receipt-intro" aria-labelledby="receipt-title">
+        <h1 class="booking-title" id="receipt-title">MY BOOKING.</h1>
+        <p class="booking-status" id="receipt-status" role="status"></p>
+        <p class="booking-intro" id="receipt-intro"></p>
+        <dl class="booking-driver-summary">
+          <div><dt>Driver</dt><dd id="receipt-name"></dd></div>
+          <div><dt>Email</dt><dd id="receipt-email"></dd></div>
+        </dl>
+        <div class="booking-buttons">
+          <a class="booking-action" id="edit-booking" href="booking.html" hidden>Edit reservation <span aria-hidden="true">→</span></a>
+          <a class="booking-action booking-action--outline" id="pickup-guide-link" href="pickup-guide.html" hidden>Pick-up guide <span aria-hidden="true">→</span></a>
+          <a class="booking-action booking-action--outline" id="trip-pack-link" href="trip-pack.html" hidden>Trip pack <span aria-hidden="true">→</span></a>
+          <a class="booking-action" id="browse-after-cancel" href="fleet.html" hidden>Browse cars <span aria-hidden="true">→</span></a>
+          <button class="booking-action booking-action--outline" id="open-cancel" type="button">Cancel reservation</button>
+        </div>
+        <p class="booking-error" id="booking-error" role="alert" hidden></p>
+      </section>
+      <article class="booking-ticket booking-ticket--receipt" aria-label="Reservation receipt">
+        <div class="booking-reference"><span>Booking reference</span><strong id="receipt-reference"></strong></div>
+        <div class="booking-photo" data-receipt-photo hidden><img alt=""></div>
+        <div class="booking-ticket-body">
+          <h2 id="receipt-car"></h2>
+          <p id="receipt-location" class="booking-station"></p>
+          <p class="booking-drive" id="receipt-drive" hidden>Planned drive · <a href="route.html"></a></p>
+          <div class="booking-route">
+            <div><span>Pick-up</span><strong id="receipt-pickup"></strong></div>
+            <div><span>Return</span><strong id="receipt-return"></strong></div>
+          </div>
+          <dl class="booking-costs">
+            <div><dt>Rental subtotal</dt><dd id="receipt-subtotal"></dd></div>
+            <div><dt>Sample taxes and fees</dt><dd id="receipt-fees"></dd></div>
+            <div class="booking-total"><dt>Demo total</dt><dd id="receipt-total"></dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+    <section class="booking-empty" id="booking-empty" hidden>
+      <h1 class="booking-title">MY BOOKING.</h1>
+      <p class="booking-intro">Your confirmed demo reservation will appear here on this browser.</p>
+      <a class="booking-action" href="fleet.html">Browse the fleet <span aria-hidden="true">→</span></a>
+    </section>
+    <dialog class="booking-dialog" id="cancel-dialog" aria-labelledby="cancel-title">
+      <h2 id="cancel-title">Cancel this reservation?</h2>
+      <p>The demo reservation will be marked as cancelled.</p>
+      <form class="booking-buttons" method="dialog">
+        <button class="booking-action booking-action--outline" value="keep" autofocus>Keep reservation</button>
+        <button class="booking-action" value="cancel">Cancel reservation</button>
+      </form>
+    </dialog>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

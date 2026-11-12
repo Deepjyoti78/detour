@@ -1,0 +1,28 @@
+.faq-page { width: 90%; max-width: 1540px; margin: 0 auto; padding: 42px 0 70px; }
+.faq-intro { display: flex; justify-content: space-between; align-items: end; gap: 25px; margin-bottom: 41px; }
+.faq-eyebrow { margin: 0 0 9px; color: var(--muted); font-weight: 700; }
+.faq-intro h1 { margin: 0; font: clamp(52px, 6vw, 98px)/1 Anton, sans-serif; letter-spacing: -.01em; }
+.faq-intro > p { max-width: 340px; margin: 0 0 3px; color: var(--muted); font-size: 21px; }
+.faq-layout { display: grid; grid-template-columns: minmax(250px, .65fr) minmax(0, 1.5fr); gap: clamp(28px, 6vw, 100px); align-items: start; }
+.faq-aside { background: var(--blue); color: var(--paper); padding: 27px; }
+.faq-aside h2 { margin: 0 0 16px; font: 34px/1 Anton, sans-serif; }
+.faq-aside nav a { display: flex; justify-content: space-between; gap: 12px; padding: 13px 0; border-top: 1px solid #8497c5; font-weight: 700; text-decoration: none; }
+.faq-aside nav a:hover { text-decoration: underline; }
+.faq-aside > p { margin: 19px 0; color: var(--light-blue); }
+.faq-action { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; background: var(--yellow); color: var(--ink); font-weight: 700; text-decoration: none; }
+.faq-topics section + section { margin-top: 35px; }
+.faq-topics h2 { margin: 0 0 13px; font: 34px/1.1 Anton, sans-serif; }
+.faq-topics details { border-top: 1px solid var(--rule); }
+.faq-topics details:last-child { border-bottom: 1px solid var(--rule); }
+.faq-topics summary { display: flex; align-items: start; justify-content: space-between; gap: 20px; padding: 15px 3px; list-style: none; font-weight: 700; }
+.faq-topics summary::-webkit-details-marker { display: none; }
+.faq-topics summary::after { content: "+"; flex: 0 0 15px; font-size: 21px; line-height: 1.1; text-align: center; }
+.faq-topics details[open] summary::after { content: "−"; }
+.faq-topics details p { max-width: 65ch; margin: 0 25px 17px 3px; color: var(--muted); }
+
+@media (max-width: 720px) {
+  .faq-page { padding-top: 30px; }
+  .faq-intro { flex-direction: column; align-items: start; gap: 13px; margin-bottom: 25px; }
+  .faq-layout { grid-template-columns: 1fr; }
+  .faq-aside { padding: 22px; }
+}

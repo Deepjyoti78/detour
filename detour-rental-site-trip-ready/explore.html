@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore | Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="discover.css">
+  <script src="site.js" defer></script>
+  <script src="discover.js" defer></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="discover-main explore-page" id="main-content">
+    <div class="intro">
+      <h1>TAKE THE LONG WAY.</h1>
+      <p>Three scenic drives out of Portland, from river bluffs to the Pacific coast.</p>
+    </div>
+    <div class="filters">
+      <div class="filter-buttons" role="group" aria-label="Route filters">
+        <button type="button" data-drive-filter="all" aria-pressed="true">All drives</button>
+        <button type="button" data-drive-filter="waterfalls" aria-pressed="false">Waterfalls</button>
+        <button type="button" data-drive-filter="coast" aria-pressed="false">Coast</button>
+        <button type="button" data-drive-filter="mountains" aria-pressed="false">Mountains</button>
+      </div>
+      <div class="start">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11s-7-6-7-11a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+        Starting near <strong>Portland, OR</strong>
+      </div>
+    </div>
+    <div class="atlas" data-route-atlas data-filter="all">
+      <figure class="map" aria-labelledby="map-name">
+        <figcaption class="map-heading"><strong id="map-name">Route map</strong><span data-map-title>Columbia River Gorge</span></figcaption>
+        <svg class="map-drawing" data-gorge-map viewBox="0 0 900 440" role="img" aria-label="Schematic of the Columbia River Gorge route from Portland through Vista House and Multnomah Falls to Hood River" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="columbia" d="M-50 173C24 177 49 196 103 214C166 235 221 246 289 232C376 215 421 226 482 204C550 179 563 168 630 164C713 159 766 132 805 102C839 77 870 72 950 70"/>
+          </defs>
+          <path fill="#eae6ca" d="M0 0h900v440H0z"/>
+          <path fill="#e7e8d2" d="M0 0h900v80c-97-11-110 46-230 70-77 16-145 50-206 66-93 24-152 27-222 27S91 218 0 178Z"/>
+          <g fill="none" stroke="#bfc7ac" stroke-width="1.3" opacity=".76">
+            <path d="M-40 101C58 86 84 161 174 153s91-62 186-53 105-3 157-36c48-31 100-32 163-13s125-11 156-36"/>
+            <path d="M-40 84c101-18 139 63 217 53 90-11 93-63 178-52 63 8 112-6 153-34C552 22 602 16 683 36c63 15 106-14 134-30"/>
+            <path d="M-25 66C83 52 110 137 181 120s86-58 169-50 110-17 150-41C559-6 614 9 671 20c46 9 92-9 121-29"/>
+            <path d="M-13 49c92-5 127 72 194 54 64-17 94-60 168-48S453 40 491 14c56-38 111-27 183-12"/>
+            <path d="M-18 32c90-7 142 69 192 57s99-64 174-49 107-18 139-39"/>
+            <path d="M614 119c66 11 99-36 146-45s68-23 103-49"/>
+            <path d="M632 106c51 5 74-35 122-47 47-12 69-20 96-49"/>
+            <path d="M650 91c39 3 62-35 101-45 41-10 64-25 79-44"/>
+          </g>
+          <g fill="none" stroke="#c8c2a5" stroke-width="1.3" opacity=".9">
+            <path d="M-12 387c82-29 156-40 224-17 97 32 146 36 217 3 76-37 79-70 166-55 73 13 115 48 172 27 74-28 74-75 150-87"/>
+            <path d="M-14 406c79-30 155-43 221-21 103 35 155 39 232 2 76-37 73-68 156-55 62 10 114 48 173 26 67-26 83-69 146-81"/>
+            <path d="M-12 425c73-32 160-45 222-25 104 34 162 39 238 2 67-33 73-68 149-55 63 10 113 50 176 25 71-29 76-66 149-82"/>
+            <path d="M122 439c58-22 111-10 174 7m148-21c71-38 87-80 157-63 67 16 113 49 177 26 62-22 82-66 142-81"/>
+            <path d="M510 432c46-31 50-54 98-49 51 6 107 46 175 19 66-26 77-62 143-79"/>
+            <path d="M567 431c35-62 103 6 165-3 94-12 103-55 188-86"/>
+            <path d="M657 436c53 19 125 0 176-37 41-30 67-40 89-43"/>
+          </g>
+          <g fill="none" stroke="#f8f0d8" stroke-width="3">
+            <path d="M4 317c108-23 152 19 212 12 100-13 136-49 222-39 95 12 148-42 214-41 86 1 132-30 248-43"/>
+            <path d="M82 439c-8-43 35-71 34-111-2-58-43-91-46-157-1-60 35-101 19-171"/>
+            <path d="M213 439c-8-57-35-70-29-114 7-48 60-55 74-105 10-42-21-77-17-131"/>
+            <path d="M773 440c-4-50-32-88-32-139 0-56 39-95 43-131 7-58-29-89-16-170"/>
+          </g>
+          <use href="#columbia" fill="none" stroke="#97b7bb" stroke-width="53"/>
+          <use href="#columbia" fill="none" stroke="#a8c7c9" stroke-width="44"/>
+          <g font-family="HK, sans-serif" font-weight="700" font-size="12" letter-spacing="3.6" fill="#5a6e67">
+            <text x="291" y="157">WASHINGTON</text><text x="397" y="366">OREGON</text>
+          </g>
+          <text fill="#284e59" font-family="HK, sans-serif" font-size="14" font-weight="700" letter-spacing="2.5"><textPath href="#columbia" startOffset="25%">COLUMBIA RIVER</textPath></text>
+          <path d="M117 342c25-11 38-24 59-29 26-6 33-5 62-8 36-4 58-24 86-26 22-2 36-2 55-5 47-7 70 2 105-16 16-9 39-15 61-17 23-3 41-16 74-15 23 0 44-12 62-16 24-5 44-7 58-19" fill="none" stroke="#203a78" stroke-width="9" stroke-linecap="round"/>
+          <path d="M117 342c25-11 38-24 59-29 26-6 33-5 62-8 36-4 58-24 86-26 22-2 36-2 55-5 47-7 70 2 105-16 16-9 39-15 61-17 23-3 41-16 74-15 23 0 44-12 62-16 24-5 44-7 58-19" fill="none" stroke="#fce466" stroke-width="5" stroke-linecap="round"/>
+          <g font-family="HK, sans-serif" font-size="16" font-weight="700" fill="#18274b" paint-order="stroke" stroke="#f1ead2" stroke-width="4" stroke-linejoin="round">
+            <text x="59" y="378">Portland</text><text x="284" y="316">Vista House</text><text x="461" y="286">Multnomah Falls</text><text x="687" y="226">Hood River</text>
+          </g>
+          <g stroke="#203a78" stroke-width="2.5" fill="#fce466">
+            <circle cx="117" cy="342" r="8" fill="#203a78"/><circle cx="324" cy="279" r="9"/><circle cx="518" cy="247" r="9"/><circle cx="739" cy="191" r="9"/>
+          </g>
+          <g font-family="HK, sans-serif" font-size="11" font-weight="700" fill="#18274b" text-anchor="middle">
+            <text x="324" y="283">1</text><text x="518" y="251">2</text><text x="739" y="195">3</text>
+          </g>
+          <g transform="translate(842 345)" fill="#203a78">
+            <path d="M0 32 8 9l8 23-8-5Z"/><text x="8" y="4" text-anchor="middle" font-family="HK, sans-serif" font-size="13" font-weight="700">N</text>
+          </g>
+        </svg>
+        <div class="map-schematic" data-route-schematic hidden>
+          <ol class="schematic-stops" data-schematic-stops aria-label="Stops in suggested order"></ol>
+        </div>
+        <div class="map-footer"><span class="key" data-map-key>Featured drive</span><span data-map-note>Schematic map</span></div>
+      </figure>
+      <section class="route-panel" aria-label="Drives near Portland" aria-live="polite">
+        <article class="featured" data-drive-category="waterfalls">
+          <img src="assets/gorge-landscape.jpg" alt="Illustration of evergreen bluffs above the Columbia River">
+          <div class="feature-content">
+            <div><p class="type">Waterfalls</p><h2>Columbia River Gorge</h2><p class="description">Clifftop views and waterfall stops.</p></div>
+            <a class="discover-action open-route" href="route.html?drive=gorge">View route <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <a class="other" href="route.html?drive=coast" data-drive-category="coast">
+          <img src="assets/coast-landscape.jpg" alt="Illustration of a sea stack off Cannon Beach">
+          <div><h2>North Oregon Coast</h2><p>Cannon Beach and Manzanita</p></div><span class="arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="other" href="route.html?drive=hood" data-drive-category="mountains">
+          <img src="assets/hood-landscape.jpg" alt="Illustration of Mount Hood reflected in Trillium Lake">
+          <div><h2>Mount Hood</h2><p>Government Camp and Trillium Lake</p></div><span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </section>
+    </div>
+    <p class="discover-caption">Illustrative landscapes. Route diagrams show the order of stops.</p>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

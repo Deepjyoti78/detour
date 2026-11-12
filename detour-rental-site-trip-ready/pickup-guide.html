@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="See the pick-up steps and checklist for Detour's Portland rental demo.">
+  <title>Pick-up guide | Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="pickup-guide.css">
+  <script src="site.js" defer></script>
+  <script src="pickup-guide.js" defer></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="pickup-guide" id="main-content">
+    <a class="pickup-back" href="locations.html">← All locations</a>
+    <div class="pickup-heading">
+      <h1>YOUR PICK-UP GUIDE.</h1>
+      <p>Plan what to check and bring before collecting your car.</p>
+    </div>
+
+    <nav class="pickup-locations" aria-label="Pick-up guide locations" data-guide-locations></nav>
+
+    <div class="pickup-overview">
+      <figure class="pickup-map" data-guide-map>
+        <figcaption><strong>Pick-up schematic</strong><span data-guide-map-caption></span></figcaption>
+        <ol class="pickup-map-route" data-guide-map-route aria-label="Illustrated pick-up sequence"></ol>
+        <div class="pickup-map-key"><span>Collection sequence</span><span>Illustrative layout</span></div>
+      </figure>
+
+      <section class="pickup-location" aria-labelledby="guide-location-heading">
+        <p class="pickup-eyebrow">Demo pick-up and return location</p>
+        <h2 id="guide-location-heading" data-guide-name></h2>
+        <p class="pickup-location-intro" data-guide-intro></p>
+        <dl class="pickup-location-facts">
+          <div><dt>Branch address</dt><dd>Confirm with the rental operator</dd></div>
+          <div><dt>Opening hours</dt><dd>Confirm before travel</dd></div>
+          <div hidden data-guide-reservation><dt>Demo reservation</dt><dd><span data-guide-reference></span><span data-guide-date></span></dd></div>
+        </dl>
+        <a class="pickup-action" href="index.html#trip-planner" data-guide-action>Plan a rental <span aria-hidden="true">→</span></a>
+      </section>
+    </div>
+
+    <div class="pickup-details">
+      <section aria-labelledby="guide-directions-heading">
+        <h2 id="guide-directions-heading">Getting there</h2>
+        <ol class="pickup-directions" data-guide-directions></ol>
+      </section>
+      <section aria-labelledby="guide-checklist-heading">
+        <h2 id="guide-checklist-heading">Before pick-up</h2>
+        <ul class="pickup-checklist"></ul>
+        <a class="pickup-related" href="faq.html">Read the rental FAQ <span aria-hidden="true">→</span></a>
+      </section>
+    </div>
+    <noscript><p>Enable JavaScript to display the pick-up details for each location.</p></noscript>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the Detour car rental fleet and scenic drives from Portland, Oregon.">
+  <title>Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="home.css">
+  <script src="site.js" defer></script>
+  <script src="home.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#trip-planner">Skip to trip planner</a>
+  <main>
+  <div class="hero" id="top">
+  <header data-site-header></header>
+
+  <section class="planner" id="trip-planner">
+    <section class="cover">
+      <p class="category">SELF-DRIVE CAR RENTAL</p>
+      <h1>GET OUT <span>OF TOWN.</span></h1>
+    </section>
+    <form class="ticket" id="rental-form" action="fleet.html" aria-label="Plan your rental">
+      <div class="planner-drive" id="planner-drive" hidden>
+        <div><span>Selected drive</span><strong id="planner-drive-name"></strong></div>
+        <button id="remove-drive" type="button">Remove</button>
+      </div>
+      <div class="route">
+        <label class="field stop" for="pickup-location">
+          Pick-up and return location
+          <span class="input"><select id="pickup-location" name="location" required></select></span>
+        </label>
+        <div class="dates stop">
+          <label class="field" for="pickup-date">
+            Pick-up date
+            <span class="input"><input type="date" id="pickup-date" name="pickup" required></span>
+          </label>
+          <label class="field" for="return-date">
+            Return date
+            <span class="input"><input type="date" id="return-date" name="return" required></span>
+          </label>
+        </div>
+      </div>
+      <p class="trip-error" id="trip-error" role="alert" hidden></p>
+      <button class="search" type="submit">
+        Find a car
+        <svg viewBox="0 0 25 22" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 11h20m-8-8 8 8-8 8"/></svg>
+      </button>
+    </form>
+  </section>
+  </div>
+
+  <section class="fleet-preview section-shell" id="fleet" tabindex="-1" aria-labelledby="fleet-heading">
+    <div class="section-heading">
+      <div>
+        <h2 class="section-title" id="fleet-heading">FIND YOUR RIDE.</h2>
+        <p class="section-note">A city runabout, a roomy tourer, or a red classic.</p>
+      </div>
+      <a class="action action--outline" href="fleet.html">View all cars <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="fleet-grid" data-preview-fleet></div>
+  </section>
+
+  <section class="explore-band" id="explore" aria-labelledby="explore-heading">
+    <div class="section-shell explore-grid">
+      <div>
+        <p class="explore-location">Scenic drives from Portland</p>
+        <h2 class="section-title explore-title" id="explore-heading">TAKE THE<br><span>LONG WAY.</span></h2>
+        <p class="explore-copy">Follow the Columbia River, head for the Oregon Coast, or take the mountain road to Mount Hood.</p>
+        <a class="action action--yellow" href="explore.html">Explore drives <span aria-hidden="true">→</span></a>
+      </div>
+      <figure class="gorge">
+        <img src="assets/gorge-landscape.jpg" alt="Illustration of the Columbia River winding between forested bluffs">
+        <figcaption><strong>Columbia River Gorge</strong><span>Illustrative landscape</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="how-to section-shell" aria-labelledby="steps-heading">
+    <div class="section-heading">
+      <h2 class="section-title" id="steps-heading">HOW IT WORKS.</h2>
+      <a class="action action--outline" href="#trip-planner">Plan your rental <span aria-hidden="true">↑</span></a>
+    </div>
+    <ol class="booking-steps">
+      <li><span class="step-number" aria-hidden="true">1</span><h3>Set your dates</h3><p>Choose where and when you’ll pick up and return your car.</p></li>
+      <li><span class="step-number" aria-hidden="true">2</span><h3>Choose a car</h3><p>Compare available cars, enter your details, and review the total.</p></li>
+      <li><span class="step-number" aria-hidden="true">3</span><h3>Pick up and go</h3><p>Bring your booking reference when you arrive at the pick-up location.</p></li>
+    </ol>
+  </section>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

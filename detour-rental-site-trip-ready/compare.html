@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare cars | Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="catalog.css">
+  <script src="site.js" defer></script>
+  <script src="catalog.js" defer></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="catalog compare-page">
+    <a class="catalog-back" href="fleet.html">← Back to fleet</a>
+    <div class="catalog-intro">
+      <h1>COMPARE CARS.</h1>
+      <p>Check the space, transmission, and price for each car.</p>
+    </div>
+    <div class="trip-strip" id="catalog-trip" hidden></div>
+    <div class="compare-no-trip" id="compare-no-trip" hidden>
+      <p>Choose rental dates to see estimated trip totals.</p>
+      <a href="index.html#trip-planner">Set rental dates →</a>
+    </div>
+    <fieldset class="compare-selection" aria-describedby="compare-selection-status">
+      <legend>Choose two or three cars</legend>
+      <div id="compare-choices"></div>
+      <p class="compare-selection-status" id="compare-selection-status" aria-live="polite"></p>
+    </fieldset>
+    <div id="compare-results"></div>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Choose a Portland pick-up point for the Detour rental demo.">
+  <title>Locations | Detour Car Rental</title>
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="discover.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <header data-site-header></header>
+  <main class="discover-main locations-page" id="main-content">
+    <div class="intro">
+      <h1>CHOOSE YOUR PICK-UP.</h1>
+      <p>Choose a demo location to carry it into the trip planner.</p>
+    </div>
+    <section class="locations-cover" aria-labelledby="pickup-city">
+      <div>
+        <p>Pick-up and return</p>
+        <strong id="pickup-city">PORTLAND,<br>OREGON.</strong>
+      </div>
+      <div class="locations-photo" role="img" aria-label="Detour's red classic car beside a tree at sunset"></div>
+    </section>
+    <div class="location-grid">
+      <article class="location-card">
+        <div>
+          <h2>Portland Downtown</h2>
+          <p>Start your demo rental in the city.</p>
+        </div>
+        <div class="location-actions">
+          <a class="discover-action" href="index.html?location=portland-downtown#trip-planner">Choose Downtown <span aria-hidden="true">→</span></a>
+          <a class="location-guide" href="pickup-guide.html?location=portland-downtown" aria-label="Portland Downtown pick-up guide">Pick-up guide</a>
+        </div>
+      </article>
+      <article class="location-card">
+        <div>
+          <h2>Portland Airport</h2>
+          <p>Start your demo rental near the airport.</p>
+        </div>
+        <div class="location-actions">
+          <a class="discover-action" href="index.html?location=portland-airport#trip-planner">Choose Airport <span aria-hidden="true">→</span></a>
+          <a class="location-guide" href="pickup-guide.html?location=portland-airport" aria-label="Portland Airport pick-up guide">Pick-up guide</a>
+        </div>
+      </article>
+    </div>
+  </main>
+  <footer data-site-footer></footer>
+</body>
+</html>
