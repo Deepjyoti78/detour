@@ -62,7 +62,7 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
                 {car.transmission} · {car.seats} SEATER
               </span>
               <span className="text-xs font-bold text-[#203a78] bg-[#d8e3fb] px-2.5 py-0.5 border border-[#203a78]/30">
-                {available ? 'Available' : 'Unavailable on date'}
+                Ready for collection
               </span>
             </div>
             <h1 className="font-['Anton',sans-serif] text-5xl md:text-6xl text-[#18274b] tracking-tight">
@@ -128,23 +128,20 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
             {available ? (
               <Link
                 href={`/booking?car=${car.id}`}
-                className="btn-tactile-yellow w-full py-3.5 px-6 flex items-center justify-center gap-2 text-sm tracking-wider uppercase group"
+                className="btn-tactile-yellow w-full py-3.5 px-6 flex items-center justify-center gap-2 font-['Anton',sans-serif] text-base tracking-wider uppercase group text-[#18274b]"
               >
                 <span>Continue to booking</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
             ) : nearbyTrip ? (
               <div className="flex flex-col gap-2">
-                <p className="text-xs text-red-800 font-bold">
-                  This car is unavailable on your selected pick-up day.
-                </p>
                 <button
                   type="button"
                   onClick={() => {
                     setPickup(nearbyTrip.pickup);
                     setReturn(nearbyTrip.return);
                   }}
-                  className="btn-tactile-outline w-full py-3 px-4 text-xs font-bold"
+                  className="btn-tactile-outline w-full py-3 px-4 font-['Anton',sans-serif] text-sm uppercase tracking-wider text-[#18274b]"
                 >
                   Reschedule to {formatDate(nearbyTrip.pickup)} →
                 </button>
@@ -152,7 +149,7 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
             ) : (
               <Link
                 href="/#trip-planner"
-                className="btn-tactile-outline w-full py-3 px-4 text-center text-xs font-bold"
+                className="btn-tactile-outline w-full py-3 px-4 text-center font-['Anton',sans-serif] text-base uppercase tracking-wider text-[#18274b]"
               >
                 Change rental dates
               </Link>

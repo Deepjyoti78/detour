@@ -182,8 +182,8 @@ function CompareContent() {
                             Available
                           </span>
                         ) : (
-                          <span className="text-xs font-bold text-red-800 bg-red-100 px-2 py-0.5 border border-red-300">
-                            Unavailable on pickup date
+                          <span className="text-xs font-bold text-[#47516a] bg-[#ebe2cb] px-2 py-0.5 border border-[#a9aa9c]">
+                            Check alternative dates
                           </span>
                         )}
                       </td>

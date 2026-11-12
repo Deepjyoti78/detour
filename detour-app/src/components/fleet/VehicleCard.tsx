@@ -78,17 +78,10 @@ export default function VehicleCard({ car }: VehicleCardProps) {
             </span>
           </div>
 
-          {/* Availability Status & Pricing */}
-          <div className="mb-4">
-            {!available && (
-              <span className="inline-block text-xs font-bold text-red-800 bg-red-100 px-2 py-0.5 border border-red-300">
-                Unavailable on pick-up date
-              </span>
-            )}
-
-            {/* Estimated Total */}
-            {quote && available && (
-              <p className="text-xs font-bold text-[#18274b] mt-1">
+          {/* Estimated Total */}
+          <div className="mb-4 min-h-[22px]">
+            {quote && (
+              <p className="text-xs font-bold text-[#18274b]">
                 Estimated total: <strong className="text-sm">{formatMoney(quote.total)}</strong> ({quote.days} {quote.days === 1 ? 'day' : 'days'})
               </p>
             )}
@@ -101,7 +94,7 @@ export default function VehicleCard({ car }: VehicleCardProps) {
         {available ? (
           <Link
             href={`/booking?car=${car.id}`}
-            className="btn-tactile-yellow py-2.5 px-4 text-center text-sm tracking-wider flex items-center justify-center gap-2 group"
+            className="btn-tactile-yellow py-2.5 px-4 text-center font-['Anton',sans-serif] text-base tracking-wider uppercase flex items-center justify-center gap-2 group text-[#18274b]"
           >
             <span>Continue to booking</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -113,14 +106,14 @@ export default function VehicleCard({ car }: VehicleCardProps) {
               setPickup(nearbyTrip.pickup);
               setReturn(nearbyTrip.return);
             }}
-            className="btn-tactile-outline py-2.5 px-4 text-center text-xs tracking-wider"
+            className="btn-tactile-outline py-2.5 px-4 text-center font-['Anton',sans-serif] text-sm sm:text-base tracking-wider uppercase text-[#18274b]"
           >
             Try {formatDate(nearbyTrip.pickup)} →
           </button>
         ) : (
           <Link
             href="/#trip-planner"
-            className="btn-tactile-outline py-2.5 px-4 text-center text-xs tracking-wider"
+            className="btn-tactile-outline py-2.5 px-4 text-center font-['Anton',sans-serif] text-base tracking-wider uppercase text-[#18274b]"
           >
             Change rental dates
           </Link>
