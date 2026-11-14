@@ -1,9 +1,11 @@
 import { Car, LocationDepot, ScenicDrive } from '@/types';
 
 export const CARS: Car[] = [
+  // Classic Category
   {
     id: 'classic',
     name: 'The Classic',
+    category: 'classic',
     rate: 89,
     seats: 4,
     luggage: 2,
@@ -15,8 +17,38 @@ export const CARS: Car[] = [
     bestFor: 'Slow scenic drives and weekends with a couple of soft-sided bags.',
   },
   {
+    id: 'roadster',
+    name: 'The Roadster',
+    category: 'classic',
+    rate: 99,
+    seats: 2,
+    luggage: 1,
+    closedDay: 2, // Tuesday
+    transmission: 'Manual',
+    image: '/assets/roadster.jpg',
+    alt: 'Vintage roadster with open-top cockpit',
+    description: 'Pure vintage open-air motoring for winding backroads and coastal cliffs.',
+    bestFor: 'Romantic weekend getaways, coastal highways, and sunset ridge drives.',
+  },
+  {
+    id: 'cabriolet',
+    name: 'The Cabriolet',
+    category: 'classic',
+    rate: 95,
+    seats: 4,
+    luggage: 2,
+    closedDay: 4, // Thursday
+    transmission: 'Manual',
+    image: '/assets/cabriolet.jpg',
+    alt: 'Classic drop-top touring cabriolet',
+    description: 'Timeless drop-top silhouette with effortless cruiser charm and chrome accents.',
+    bestFor: 'Sunny summer road trips and heritage routes with friends.',
+  },
+  // City Category
+  {
     id: 'city',
     name: 'The City',
+    category: 'city',
     rate: 59,
     seats: 4,
     luggage: 1,
@@ -28,8 +60,38 @@ export const CARS: Car[] = [
     bestFor: 'City errands, short trips, and light packing for two.',
   },
   {
+    id: 'metro',
+    name: 'The Metro',
+    category: 'city',
+    rate: 52,
+    seats: 4,
+    luggage: 2,
+    closedDay: 1, // Monday
+    transmission: 'Automatic',
+    image: '/assets/metro.jpg',
+    alt: 'Nimble modern urban runabout',
+    description: 'Ultra-nimble city cruiser designed for tight parking and narrow streets.',
+    bestFor: 'Navigating bustling downtown streets, metro hops, and weekend market runs.',
+  },
+  {
+    id: 'sprint',
+    name: 'The Sprint EV',
+    category: 'city',
+    rate: 65,
+    seats: 5,
+    luggage: 2,
+    closedDay: 0, // Sunday
+    transmission: 'Automatic',
+    image: '/assets/sprint.jpg',
+    alt: 'Modern agile electric city hatchback',
+    description: 'Quiet, zero-emission urban sprint with instant electric torque.',
+    bestFor: 'Eco-friendly daily commutes, city hopping, and smooth quiet drives.',
+  },
+  // Touring Category
+  {
     id: 'touring',
     name: 'The Touring',
+    category: 'touring',
     rate: 75,
     seats: 5,
     luggage: 3,
@@ -39,6 +101,34 @@ export const CARS: Car[] = [
     alt: 'Slate blue touring crossover',
     description: 'A five-seat crossover for longer drives.',
     bestFor: 'Longer coastal or mountain drives with friends and extra bags.',
+  },
+  {
+    id: 'overland',
+    name: 'The Overland',
+    category: 'touring',
+    rate: 115,
+    seats: 5,
+    luggage: 4,
+    closedDay: 4, // Thursday
+    transmission: 'Automatic',
+    image: '/assets/overland.jpg',
+    alt: 'Rugged all-terrain 4x4 expedition vehicle',
+    description: 'High-clearance expedition 4x4 engineered for mountain passes and wild trails.',
+    bestFor: 'Ghat climbs, national park expeditions, and backcountry adventures.',
+  },
+  {
+    id: 'grand-tourer',
+    name: 'The Grand Tourer',
+    category: 'touring',
+    rate: 105,
+    seats: 5,
+    luggage: 4,
+    closedDay: 3, // Wednesday
+    transmission: 'Automatic',
+    image: '/assets/grand-tourer.jpg',
+    alt: 'Sleek luxury touring estate wagon',
+    description: 'Smooth cross-country performance with expansive cargo volume.',
+    bestFor: 'Multi-day state highway touring and family luggage.',
   },
 ];
 

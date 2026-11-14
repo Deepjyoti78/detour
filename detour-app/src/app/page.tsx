@@ -1,15 +1,21 @@
 'use client';
 
+import { useState, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import TicketForm from '@/components/planner/TicketForm';
 import VehicleCard from '@/components/fleet/VehicleCard';
 import { CARS } from '@/lib/data';
 import { ArrowRight, ArrowUp } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 
 export default function HomePage() {
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'classic' | 'city' | 'touring'>('all');
+
+  const displayedCars = selectedCategory === 'all'
+    ? CARS.slice(0, 6) // Two full rows of 3 cars = 6 cars
+    : CARS.filter((car) => car.category === selectedCategory);
+
   return (
     <div>
       {/* Hero Section: Full viewport height showing complete background car picture without clipping */}
@@ -17,7 +23,7 @@ export default function HomePage() {
         id="trip-planner"
         className="relative z-30 min-h-screen bg-[#c59049] flex items-center pt-28 sm:pt-32 pb-28 sm:pb-36 md:pb-44 px-3 sm:px-6 md:px-12 border-b-2 border-[#18274b] overflow-visible"
       >
-        {/* Background Image Wrapper - updated with user-provided high-res golden hour cornfield picture */}
+        {/* Background Image Wrapper - high-res golden hour cornfield picture */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <Image
             src="/assets/golden-hour-classic-car-by-cornfields.png"
@@ -30,8 +36,7 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-transparent" />
         </div>
 
-        {/* Content Container - completely overflow visible and elevated z-index so calendar popover never clips */}
-        <div className="relative z-30 w-full max-w-7xl mx-auto flex items-center overflow-visible">
+        <div className="relative z-20 w-full max-w-7xl mx-auto flex items-center justify-start overflow-visible">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -45,31 +50,69 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Fleet Preview Section: Appears immediately upon scrolling, stacked below hero popovers */}
+      {/* Fleet Preview Section: Appears immediately upon scrolling, stacked below hero */}
       <section id="fleet" className="relative z-10 py-12 sm:py-16 md:py-20 px-4 md:px-12 w-full max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-[#a9aa9c]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-[#a9aa9c]">
           <div>
             <h2 className="font-['Anton',sans-serif] text-5xl md:text-6xl tracking-tight text-[#18274b]">
               FIND YOUR RIDE.
             </h2>
             <p className="text-sm md:text-base text-[#47516a] mt-2 font-medium">
-              A city runabout, a roomy tourer, or a red classic.
+              Explore vintage roadsters, nimble city hatchbacks, or all-weather touring crossovers.
             </p>
           </div>
           <Link
             href="/fleet"
-            className="btn-tactile-outline py-2.5 px-5 text-sm uppercase tracking-wider flex items-center gap-2 self-start md:self-auto group"
+            className="btn-tactile-outline py-2.5 px-5 text-sm uppercase tracking-wider flex items-center gap-2 self-start md:self-auto group text-[#18274b]"
           >
-            <span>View all cars</span>
+            <span>View all 9 fleet cars</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {CARS.map((car) => (
-            <VehicleCard key={car.id} car={car} />
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2.5 mb-10">
+          {[
+            { id: 'all', label: 'All Fleet', count: 6 },
+            { id: 'classic', label: 'Scenic Classics', count: 3 },
+            { id: 'city', label: 'City Runabouts', count: 3 },
+            { id: 'touring', label: 'Modern Touring', count: 3 },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setSelectedCategory(tab.id as 'all' | 'classic' | 'city' | 'touring')}
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[#18274b] transition-all cursor-pointer ${
+                selectedCategory === tab.id
+                  ? 'bg-[#18274b] text-[#faf2db] shadow-[3px_3px_0px_#18274b]'
+                  : 'bg-[#faf2db] text-[#18274b] hover:bg-[#fce466] shadow-[2px_2px_0px_#18274b]'
+              }`}
+            >
+              {tab.label} ({tab.count})
+            </button>
           ))}
         </div>
+
+        {/* Cars Grid - 2 rows of 3 cars = 6 cars, or 3 per category */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence>
+            {displayedCars.map((car) => (
+              <VehicleCard key={car.id} car={car} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {selectedCategory === 'all' && (
+          <div className="mt-12 text-center">
+            <Link
+              href="/fleet"
+              className="btn-tactile-yellow py-3.5 px-8 font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 group text-[#18274b]"
+            >
+              <span>Explore full 9-car fleet catalog</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
+            </Link>
+          </div>
+        )}
       </section>
 
       {/* Scenic Drive Banner - Detour Navy */}
@@ -87,7 +130,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/explore"
-              className="btn-tactile-yellow py-3 sm:py-3.5 px-5 sm:px-6 inline-flex items-center gap-2 text-xs sm:text-sm tracking-wider group"
+              className="btn-tactile-yellow py-3 sm:py-3.5 px-5 sm:px-6 inline-flex items-center gap-2 text-xs sm:text-sm tracking-wider group text-[#18274b]"
             >
               <span>Explore scenic drives</span>
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
@@ -139,10 +182,10 @@ export default function HomePage() {
             </span>
             <div>
               <h3 className="font-['Anton',sans-serif] text-2xl text-[#18274b] tracking-wide mb-2">
-                SET YOUR DATES
+                PICK DATES & DEPOT
               </h3>
-              <p className="text-sm text-[#47516a] leading-relaxed">
-                Choose where and when you’ll pick up and return your car using the retro trip ticket.
+              <p className="text-xs sm:text-sm text-[#47516a] leading-relaxed">
+                Choose your collection station and select travel dates using our vintage calendar planner.
               </p>
             </div>
           </motion.li>
@@ -160,10 +203,10 @@ export default function HomePage() {
             </span>
             <div>
               <h3 className="font-['Anton',sans-serif] text-2xl text-[#18274b] tracking-wide mb-2">
-                CHOOSE A CAR
+                MATCH THE DRIVE
               </h3>
-              <p className="text-sm text-[#47516a] leading-relaxed">
-                Compare available vehicles in the fleet, enter driver details, and review the exact quote.
+              <p className="text-xs sm:text-sm text-[#47516a] leading-relaxed">
+                Pair your vehicle with scenic coastal or mountain routes tailored for manual shifts or easy automatic cruising.
               </p>
             </div>
           </motion.li>
@@ -181,10 +224,10 @@ export default function HomePage() {
             </span>
             <div>
               <h3 className="font-['Anton',sans-serif] text-2xl text-[#18274b] tracking-wide mb-2">
-                PICK UP & GO
+                GET OUT OF TOWN
               </h3>
-              <p className="text-sm text-[#47516a] leading-relaxed">
-                Bring your demo booking reference and offline trip pack when you arrive at the depot.
+              <p className="text-xs sm:text-sm text-[#47516a] leading-relaxed">
+                Receive instant confirmation with a printable trip pack, route tips, and local roadside assistance.
               </p>
             </div>
           </motion.li>

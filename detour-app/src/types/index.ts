@@ -1,6 +1,7 @@
 export interface Car {
   id: string;
   name: string;
+  category: 'classic' | 'city' | 'touring';
   rate: number;
   seats: number;
   luggage: number;

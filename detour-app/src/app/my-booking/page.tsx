@@ -33,7 +33,7 @@ export default function MyBookingPage() {
         <p className="text-sm md:text-base text-[#47516a] mb-8 font-medium">
           Your confirmed reservation will appear here on this browser.
         </p>
-        <Link href="/fleet" className="btn-tactile-yellow py-3.5 px-6 font-['Anton',sans-serif] text-base uppercase tracking-wider inline-block text-[#18274b]">
+        <Link href="/fleet" className="btn-tactile-yellow py-3.5 px-6 font-bold text-sm uppercase tracking-wider inline-block text-[#18274b]">
           Browse the fleet →
         </Link>
       </div>
@@ -169,7 +169,7 @@ export default function MyBookingPage() {
             <div className="flex flex-col gap-3">
               <Link
                 href={`/booking?edit=${encodeURIComponent(booking.reference)}`}
-                className="btn-tactile-yellow py-3.5 px-6 font-['Anton',sans-serif] text-base uppercase tracking-wider flex items-center justify-center gap-2 group text-[#18274b]"
+                className="btn-tactile-yellow py-3.5 px-6 font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 group text-[#18274b]"
               >
                 <span>Edit reservation dates / depot</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -177,13 +177,13 @@ export default function MyBookingPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <Link
                   href={`/pickup-guide?location=${location.id}`}
-                  className="btn-tactile-outline py-3 px-4 font-['Anton',sans-serif] text-sm uppercase tracking-wider text-center text-[#18274b]"
+                  className="btn-tactile-outline py-3 px-4 font-bold text-xs uppercase tracking-wider text-center text-[#18274b]"
                 >
                   Pick-up guide
                 </Link>
                 <Link
                   href="/trip-pack"
-                  className="btn-tactile-outline py-3 px-4 font-['Anton',sans-serif] text-sm uppercase tracking-wider flex items-center justify-center gap-1.5 text-[#18274b]"
+                  className="btn-tactile-outline py-3 px-4 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 text-[#18274b]"
                 >
                   <Printer className="w-4 h-4" />
                   <span>Trip pack</span>
@@ -197,7 +197,7 @@ export default function MyBookingPage() {
               </div>
               <Link
                 href="/fleet"
-                className="btn-tactile-yellow py-3.5 px-6 font-['Anton',sans-serif] text-base uppercase tracking-wider text-center text-[#18274b]"
+                className="btn-tactile-yellow py-3.5 px-6 font-bold text-sm uppercase tracking-wider text-center text-[#18274b]"
               >
                 Browse fleet to make a new booking →
               </Link>
@@ -345,7 +345,7 @@ export default function MyBookingPage() {
               <Dialog.Close asChild>
                 <button
                   type="button"
-                  className="btn-tactile-outline py-2.5 px-4 font-['Anton',sans-serif] text-sm uppercase tracking-wider cursor-pointer text-[#18274b]"
+                  className="btn-tactile-outline py-2.5 px-4 font-bold text-xs uppercase tracking-wider cursor-pointer text-[#18274b]"
                 >
                   Keep reservation
                 </button>
@@ -356,7 +356,7 @@ export default function MyBookingPage() {
                   cancelBooking();
                   setCancelOpen(false);
                 }}
-                className="py-2.5 px-4 bg-red-800 text-[#faf2db] font-['Anton',sans-serif] text-sm uppercase tracking-wider border-2 border-[#18274b] shadow-[3px_3px_0px_#18274b] hover:bg-red-900 cursor-pointer"
+                className="py-2.5 px-4 bg-red-800 text-[#faf2db] font-bold text-xs uppercase tracking-wider border-2 border-[#18274b] shadow-[3px_3px_0px_#18274b] hover:bg-red-900 cursor-pointer"
               >
                 Yes, cancel booking
               </button>

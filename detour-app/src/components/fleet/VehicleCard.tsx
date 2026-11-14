@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Car } from '@/types';
-import { formatMoney, calculateQuote, isCarAvailable, getNearbyAvailableTrip, formatDate } from '@/lib/pricing';
+import { formatMoney, calculateQuote } from '@/lib/pricing';
 import { useTripStore } from '@/stores/tripStore';
 import { motion } from 'motion/react';
 import { ArrowRight, Users, Briefcase, Cog } from 'lucide-react';
@@ -13,10 +13,8 @@ interface VehicleCardProps {
 }
 
 export default function VehicleCard({ car }: VehicleCardProps) {
-  const { trip, setPickup, setReturn } = useTripStore();
+  const { trip } = useTripStore();
   const quote = calculateQuote(car, trip);
-  const available = isCarAvailable(car, trip);
-  const nearbyTrip = !available ? getNearbyAvailableTrip(car, trip) : null;
 
   return (
     <motion.article
@@ -27,39 +25,52 @@ export default function VehicleCard({ car }: VehicleCardProps) {
       whileHover={{ y: -5, transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } }}
       whileTap={{ scale: 0.985, y: 1 }}
       transition={{ duration: 0.25 }}
-      className="card-tactile flex flex-col justify-between border border-[#a9aa9c] bg-[#faf2db] overflow-hidden cursor-pointer"
+      className="card-tactile flex flex-col justify-between border border-[#a9aa9c] bg-[#faf2db] overflow-hidden"
     >
       <div>
-        {/* Photo Header */}
-        <div className="relative h-56 w-full overflow-hidden border-b border-[#a9aa9c] bg-[#203a78]">
+        {/* Photo Header - Clickable to single car view */}
+        <Link
+          href={`/car/${car.id}`}
+          className="group block relative h-56 w-full overflow-hidden border-b border-[#a9aa9c] bg-[#203a78]"
+        >
           <Image
             src={car.image}
             alt={car.alt}
             fill
-            className="object-cover transition-transform duration-500 hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
           <div className="absolute top-3 right-3 bg-[#18274b] text-[#faf2db] text-xs font-bold px-2.5 py-1 tracking-wider uppercase border border-[#a9aa9c]">
             {car.transmission}
           </div>
-        </div>
+          {car.category && (
+            <div className="absolute top-3 left-3 bg-[#fce466] text-[#18274b] text-[10px] font-bold px-2 py-0.5 tracking-wider uppercase border border-[#18274b]">
+              {car.category}
+            </div>
+          )}
+        </Link>
 
         {/* Content Body */}
         <div className="p-6">
           <div className="flex items-start justify-between gap-4 mb-3">
             <div>
-              <h2 className="font-['Anton',sans-serif] text-2xl tracking-wide text-[#18274b]">
-                {car.name}
-              </h2>
-              <p className="text-xs text-[#47516a] line-clamp-1 mt-0.5">
+              <Link href={`/car/${car.id}`} className="hover:opacity-85 transition-opacity">
+                <h2 className="font-['Anton',sans-serif] text-2xl tracking-wide text-[#18274b]">
+                  {car.name}
+                </h2>
+              </Link>
+              <p className="text-xs text-[#47516a] line-clamp-1 mt-0.5 font-medium">
                 {car.description}
               </p>
             </div>
-            <div className="text-right">
-              <span className="font-['Anton',sans-serif] text-2xl text-[#18274b]">
+            {/* Price section: day text is beside and on the left side of the rate */}
+            <div className="flex items-baseline gap-1.5 justify-end text-right shrink-0">
+              <span className="text-xs uppercase font-bold text-[#47516a]">
+                / day
+              </span>
+              <span className="font-['Anton',sans-serif] text-2xl sm:text-3xl text-[#18274b]">
                 {formatMoney(car.rate)}
               </span>
-              <span className="text-xs text-[#47516a] block">/ day</span>
             </div>
           </div>
 
@@ -78,7 +89,7 @@ export default function VehicleCard({ car }: VehicleCardProps) {
             </span>
           </div>
 
-          {/* Estimated Total */}
+          {/* Estimated Total / Rental Note */}
           <div className="mb-4 min-h-[22px]">
             {quote && (
               <p className="text-xs font-bold text-[#18274b]">
@@ -89,41 +100,27 @@ export default function VehicleCard({ car }: VehicleCardProps) {
         </div>
       </div>
 
-      {/* Card Footer Actions */}
+      {/* Card Footer Actions - Direct booking & view, no change rental dates */}
       <div className="p-6 pt-0 flex flex-col gap-2">
-        {available ? (
-          <Link
-            href={`/booking?car=${car.id}`}
-            className="btn-tactile-yellow py-2.5 px-4 text-center font-['Anton',sans-serif] text-base tracking-wider uppercase flex items-center justify-center gap-2 group text-[#18274b]"
-          >
-            <span>Continue to booking</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        ) : nearbyTrip ? (
-          <button
-            type="button"
-            onClick={() => {
-              setPickup(nearbyTrip.pickup);
-              setReturn(nearbyTrip.return);
-            }}
-            className="btn-tactile-outline py-2.5 px-4 text-center font-['Anton',sans-serif] text-sm sm:text-base tracking-wider uppercase text-[#18274b]"
-          >
-            Try {formatDate(nearbyTrip.pickup)} →
-          </button>
-        ) : (
-          <Link
-            href="/#trip-planner"
-            className="btn-tactile-outline py-2.5 px-4 text-center font-['Anton',sans-serif] text-base tracking-wider uppercase text-[#18274b]"
-          >
-            Change rental dates
-          </Link>
-        )}
+        <Link
+          href={`/car/${car.id}`}
+          className="btn-tactile-yellow py-2.5 px-4 text-center font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 group text-[#18274b]"
+        >
+          <span>Select & Book car</span>
+          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </Link>
 
         <div className="flex items-center justify-between text-xs font-bold pt-2">
-          <Link href={`/car/${car.id}`} className="px-2 py-1 -ml-2 text-[#47516a] hover:text-[#18274b] hover:bg-[#18274b]/10 transition-colors">
-            View details
+          <Link
+            href={`/car/${car.id}`}
+            className="px-2 py-1 -ml-2 text-[#47516a] hover:text-[#18274b] hover:bg-[#18274b]/10 transition-colors"
+          >
+            View details →
           </Link>
-          <Link href={`/compare?cars=${car.id}`} className="px-2 py-1 -mr-2 text-[#203a78] hover:text-[#18274b] hover:bg-[#18274b]/10 transition-colors">
+          <Link
+            href={`/compare?cars=${car.id}`}
+            className="px-2 py-1 -mr-2 text-[#203a78] hover:text-[#18274b] hover:bg-[#18274b]/10 transition-colors"
+          >
             Compare car →
           </Link>
         </div>
