@@ -12,9 +12,6 @@ import { motion } from 'motion/react';
 export default function HomePage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // Exactly 4 featured cars in a single horizontally scrollable row
-  const featuredCars = CARS.slice(0, 4);
-
   const handleScroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const scrollDistance = scrollRef.current.clientWidth * 0.75;
@@ -59,9 +56,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Fleet Preview Section: Single horizontally scrollable row of 4 cars with 4th cropped */}
-      <section id="fleet" className="relative z-10 py-12 sm:py-16 md:py-20 px-4 md:px-12 w-full max-w-7xl mx-auto overflow-hidden">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-[#a9aa9c]">
+      {/* Fleet Preview Section: Edge-to-edge scrollable cards row extending across the screen */}
+      <section id="fleet" className="relative z-10 py-12 sm:py-16 md:py-20 w-full overflow-hidden">
+        {/* Section Header: Aligned to container grid */}
+        <div className="w-[90%] max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-[#a9aa9c]">
           <div>
             <h2 className="font-['Anton',sans-serif] text-5xl md:text-6xl tracking-tight text-[#18274b]">
               FIND YOUR RIDE.
@@ -100,39 +98,39 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Scrollable Single Row: 3 cards fit in view, 4th card cropped in half */}
-        <div className="relative">
+        {/* Edge-to-edge Horizontally Scrollable Row: Extends across the screen without inner-container clipping */}
+        <div className="w-full">
           <div
             ref={scrollRef}
-            className="flex items-stretch gap-6 overflow-x-auto pb-6 pt-2 scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex items-stretch gap-6 overflow-x-auto pb-6 pt-2 scroll-smooth snap-x snap-mandatory px-4 sm:px-6 md:px-12 lg:px-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             tabIndex={0}
             role="region"
             aria-label="Featured rental cars carousel"
           >
-            {featuredCars.map((car) => (
+            {CARS.map((car) => (
               <div
                 key={car.id}
-                className="flex-[0_0_84%] sm:flex-[0_0_46%] md:flex-[0_0_36%] lg:flex-[0_0_30.5%] snap-start shrink-0"
+                className="w-[300px] sm:w-[350px] md:w-[380px] lg:w-[400px] snap-start shrink-0"
               >
                 <VehicleCard car={car} />
               </div>
             ))}
           </div>
+        </div>
 
-          {/* Sub-strip indicator & full catalog link */}
-          <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#a9aa9c]/50 text-xs font-bold text-[#47516a]">
-            <span className="flex items-center gap-2">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#18274b]" />
-              <span>Scroll horizontally to reveal the 4th featured vehicle</span>
-            </span>
-            <Link
-              href="/fleet"
-              className="text-xs uppercase font-bold text-[#203a78] hover:text-[#18274b] hover:underline flex items-center gap-1.5 transition-colors"
-            >
-              <span>Explore all {CARS.length} vehicles on Fleet page</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+        {/* Sub-strip indicator & full catalog link */}
+        <div className="w-[90%] max-w-7xl mx-auto mt-6 flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#a9aa9c]/50 text-xs font-bold text-[#47516a]">
+          <span className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#18274b]" />
+            <span>Scroll horizontally to explore all {CARS.length} fleet vehicles</span>
+          </span>
+          <Link
+            href="/fleet"
+            className="text-xs uppercase font-bold text-[#203a78] hover:text-[#18274b] hover:underline flex items-center gap-1.5 transition-colors"
+          >
+            <span>Explore full catalog on Fleet page</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </section>
 
