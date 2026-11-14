@@ -1,20 +1,29 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useRef, Suspense } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import TicketForm from '@/components/planner/TicketForm';
 import VehicleCard from '@/components/fleet/VehicleCard';
 import { CARS } from '@/lib/data';
-import { ArrowRight, ArrowUp } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { ArrowRight, ArrowUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'motion/react';
 
 export default function HomePage() {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'classic' | 'city' | 'touring'>('all');
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const displayedCars = selectedCategory === 'all'
-    ? CARS.slice(0, 6) // Two full rows of 3 cars = 6 cars
-    : CARS.filter((car) => car.category === selectedCategory);
+  // Exactly 4 featured cars in a single horizontally scrollable row
+  const featuredCars = CARS.slice(0, 4);
+
+  const handleScroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollDistance = scrollRef.current.clientWidth * 0.75;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollDistance : scrollDistance,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <div>
@@ -50,8 +59,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Fleet Preview Section: Appears immediately upon scrolling, stacked below hero */}
-      <section id="fleet" className="relative z-10 py-12 sm:py-16 md:py-20 px-4 md:px-12 w-full max-w-7xl mx-auto">
+      {/* Fleet Preview Section: Single horizontally scrollable row of 4 cars with 4th cropped */}
+      <section id="fleet" className="relative z-10 py-12 sm:py-16 md:py-20 px-4 md:px-12 w-full max-w-7xl mx-auto overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-[#a9aa9c]">
           <div>
             <h2 className="font-['Anton',sans-serif] text-5xl md:text-6xl tracking-tight text-[#18274b]">
@@ -61,62 +70,70 @@ export default function HomePage() {
               Explore vintage roadsters, nimble city hatchbacks, or all-weather touring crossovers.
             </p>
           </div>
-          <Link
-            href="/fleet"
-            className="btn-tactile-outline py-2.5 px-5 text-sm uppercase tracking-wider flex items-center gap-2 self-start md:self-auto group text-[#18274b]"
-          >
-            <span>View all 9 fleet cars</span>
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-10">
-          {[
-            { id: 'all', label: 'All Fleet', count: 6 },
-            { id: 'classic', label: 'Scenic Classics', count: CARS.filter(c => c.category === 'classic').length },
-            { id: 'city', label: 'City Runabouts', count: CARS.filter(c => c.category === 'city').length },
-            { id: 'touring', label: 'Modern Touring', count: CARS.filter(c => c.category === 'touring').length },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => setSelectedCategory(tab.id as 'all' | 'classic' | 'city' | 'touring')}
-              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[#18274b] transition-all duration-200 cursor-pointer ${
-                selectedCategory === tab.id
-                  ? 'bg-[#18274b] text-[#faf2db] shadow-[3px_3px_0px_#18274b]'
-                  : 'bg-[#faf2db] text-[#18274b] hover:bg-[#fce466] shadow-[2px_2px_0px_#18274b]'
-              }`}
-            >
-              {tab.label} ({tab.count})
-            </button>
-          ))}
-        </div>
-
-        {/* Cars Grid - 2 rows of 3 cars = 6 cars, or filtered category */}
-        <motion.div
-          layout
-          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <AnimatePresence mode="popLayout">
-            {displayedCars.map((car) => (
-              <VehicleCard key={car.id} car={car} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {selectedCategory === 'all' && (
-          <div className="mt-12 text-center">
+          <div className="flex items-center gap-3 self-start md:self-auto">
+            {/* Scroll Navigation Buttons for Desktop */}
+            <div className="hidden sm:flex items-center gap-1.5 mr-1">
+              <button
+                type="button"
+                onClick={() => handleScroll('left')}
+                className="p-2 border-2 border-[#18274b] bg-[#faf2db] hover:bg-[#fce466] text-[#18274b] shadow-[2px_2px_0px_#18274b] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
+                aria-label="Scroll left"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => handleScroll('right')}
+                className="p-2 border-2 border-[#18274b] bg-[#faf2db] hover:bg-[#fce466] text-[#18274b] shadow-[2px_2px_0px_#18274b] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
             <Link
               href="/fleet"
-              className="btn-tactile-yellow py-3.5 px-8 font-bold text-sm uppercase tracking-wider inline-flex items-center gap-2 group text-[#18274b]"
+              className="btn-tactile-outline py-2.5 px-5 text-sm uppercase tracking-wider flex items-center gap-2 group text-[#18274b]"
             >
-              <span>Explore full 9-car fleet catalog</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1.5" />
+              <span>View all {CARS.length} fleet cars</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-        )}
+        </div>
+
+        {/* Scrollable Single Row: 3 cards fit in view, 4th card cropped in half */}
+        <div className="relative">
+          <div
+            ref={scrollRef}
+            className="flex items-stretch gap-6 overflow-x-auto pb-6 pt-2 scroll-smooth snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            tabIndex={0}
+            role="region"
+            aria-label="Featured rental cars carousel"
+          >
+            {featuredCars.map((car) => (
+              <div
+                key={car.id}
+                className="flex-[0_0_84%] sm:flex-[0_0_46%] md:flex-[0_0_36%] lg:flex-[0_0_30.5%] snap-start shrink-0"
+              >
+                <VehicleCard car={car} />
+              </div>
+            ))}
+          </div>
+
+          {/* Sub-strip indicator & full catalog link */}
+          <div className="mt-4 flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#a9aa9c]/50 text-xs font-bold text-[#47516a]">
+            <span className="flex items-center gap-2">
+              <span className="inline-block w-2 h-2 rounded-full bg-[#18274b]" />
+              <span>Scroll horizontally to reveal the 4th featured vehicle</span>
+            </span>
+            <Link
+              href="/fleet"
+              className="text-xs uppercase font-bold text-[#203a78] hover:text-[#18274b] hover:underline flex items-center gap-1.5 transition-colors"
+            >
+              <span>Explore all {CARS.length} vehicles on Fleet page</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
       </section>
 
       {/* Scenic Drive Banner - Detour Navy */}
