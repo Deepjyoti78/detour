@@ -145,16 +145,6 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
             </p>
           </div>
 
-          {/* Best Suited For Box */}
-          <div className="p-4 bg-[#faf2db] border-2 border-[#18274b]">
-            <h2 className="text-xs uppercase font-bold tracking-wider text-[#47516a] mb-1">
-              Curator Notes & Recommended Drives
-            </h2>
-            <p className="text-xs sm:text-sm font-medium text-[#18274b] leading-relaxed">
-              {car.bestFor}
-            </p>
-          </div>
-
           {/* Comprehensive Interactive Booking Box */}
           <div className="p-6 bg-[#faf2db] border-2 border-[#18274b] shadow-[6px_6px_0px_#18274b]">
             <h2 className="font-['Anton',sans-serif] text-2xl text-[#18274b] tracking-wide mb-3 border-b border-[#a9aa9c] pb-2">
