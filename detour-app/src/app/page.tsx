@@ -143,7 +143,6 @@ export default function HomePage() {
         <div className="w-full">
           <div
             ref={scrollRef}
-            data-lenis-prevent
             className="flex items-stretch gap-6 overflow-x-auto pb-6 pt-2 scroll-smooth snap-x snap-mandatory px-4 sm:px-6 md:px-12 lg:px-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
             tabIndex={0}
             role="region"
