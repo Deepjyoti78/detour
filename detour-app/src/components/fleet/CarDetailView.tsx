@@ -32,8 +32,10 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
   const quote = calculateQuote(car, trip);
   const selectedLocation = LOCATIONS.find((l) => l.id === trip.location) || LOCATIONS[0];
 
-  // Similar cars in same category or fleet
-  const similarCars = CARS.filter((c) => c.id !== car.id && (c.category === car.category || !c.category)).slice(0, 3);
+  // Similar cars: other cars in same category first, then other fleet models to ensure a full 3-card recommendation row
+  const categoryCars = CARS.filter((c) => c.id !== car.id && c.category === car.category);
+  const otherCars = CARS.filter((c) => c.id !== car.id && c.category !== car.category);
+  const similarCars = [...categoryCars, ...otherCars].slice(0, 3);
 
   return (
     <div className="w-[90%] max-w-7xl mx-auto py-10 md:py-16">
@@ -86,41 +88,41 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
             <h2 className="font-['Anton',sans-serif] text-2xl text-[#18274b] tracking-wide mb-4 border-b border-[#a9aa9c] pb-2">
               VEHICLE SPECIFICATIONS & CAPABILITIES
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs font-bold">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div className="border border-[#a9aa9c]/60 p-3 bg-[#fdf8ee]">
-                <span className="text-[#47516a] block uppercase text-[10px]">Passenger Capacity</span>
-                <span className="text-base text-[#18274b] font-['Anton',sans-serif] flex items-center gap-1 mt-1">
-                  <Users className="w-4 h-4 text-[#18274b]" /> {car.seats} Passengers
+                <span className="text-[#47516a] block uppercase text-[10px] font-semibold tracking-wider">Passenger Capacity</span>
+                <span className="text-sm sm:text-base text-[#18274b] font-normal flex items-center gap-2 mt-1.5">
+                  <Users className="w-4 h-4 text-[#47516a]" /> {car.seats} Passengers
                 </span>
               </div>
               <div className="border border-[#a9aa9c]/60 p-3 bg-[#fdf8ee]">
-                <span className="text-[#47516a] block uppercase text-[10px]">Cargo Volume</span>
-                <span className="text-base text-[#18274b] font-['Anton',sans-serif] flex items-center gap-1 mt-1">
-                  <Briefcase className="w-4 h-4 text-[#18274b]" /> {car.luggage} Standard Bags
+                <span className="text-[#47516a] block uppercase text-[10px] font-semibold tracking-wider">Cargo Volume</span>
+                <span className="text-sm sm:text-base text-[#18274b] font-normal flex items-center gap-2 mt-1.5">
+                  <Briefcase className="w-4 h-4 text-[#47516a]" /> {car.luggage} Standard Bags
                 </span>
               </div>
               <div className="border border-[#a9aa9c]/60 p-3 bg-[#fdf8ee]">
-                <span className="text-[#47516a] block uppercase text-[10px]">Transmission</span>
-                <span className="text-base text-[#18274b] font-['Anton',sans-serif] flex items-center gap-1 mt-1">
-                  <Cog className="w-4 h-4 text-[#18274b]" /> {car.transmission}
+                <span className="text-[#47516a] block uppercase text-[10px] font-semibold tracking-wider">Transmission</span>
+                <span className="text-sm sm:text-base text-[#18274b] font-normal flex items-center gap-2 mt-1.5">
+                  <Cog className="w-4 h-4 text-[#47516a]" /> {car.transmission}
                 </span>
               </div>
               <div className="border border-[#a9aa9c]/60 p-3 bg-[#fdf8ee]">
-                <span className="text-[#47516a] block uppercase text-[10px]">Fuel Policy</span>
-                <span className="text-base text-[#18274b] font-['Anton',sans-serif] flex items-center gap-1 mt-1">
-                  <Fuel className="w-4 h-4 text-[#18274b]" /> Full to Full
+                <span className="text-[#47516a] block uppercase text-[10px] font-semibold tracking-wider">Fuel Policy</span>
+                <span className="text-sm sm:text-base text-[#18274b] font-normal flex items-center gap-2 mt-1.5">
+                  <Fuel className="w-4 h-4 text-[#47516a]" /> Full to Full
                 </span>
               </div>
               <div className="border border-[#a9aa9c]/60 p-3 bg-[#fdf8ee]">
-                <span className="text-[#47516a] block uppercase text-[10px]">Route Pairing</span>
-                <span className="text-base text-[#18274b] font-['Anton',sans-serif] flex items-center gap-1 mt-1">
-                  <Compass className="w-4 h-4 text-[#18274b]" /> Scenic & City
+                <span className="text-[#47516a] block uppercase text-[10px] font-semibold tracking-wider">Route Pairing</span>
+                <span className="text-sm sm:text-base text-[#18274b] font-normal flex items-center gap-2 mt-1.5">
+                  <Compass className="w-4 h-4 text-[#47516a]" /> Scenic & City
                 </span>
               </div>
               <div className="border border-[#a9aa9c]/60 p-3 bg-[#fdf8ee]">
-                <span className="text-[#47516a] block uppercase text-[10px]">Breakdown Coverage</span>
-                <span className="text-base text-[#2B580C] font-['Anton',sans-serif] flex items-center gap-1 mt-1">
-                  <ShieldCheck className="w-4 h-4" /> 24/7 Roadside
+                <span className="text-[#47516a] block uppercase text-[10px] font-semibold tracking-wider">Breakdown Coverage</span>
+                <span className="text-sm sm:text-base text-[#2B580C] font-normal flex items-center gap-2 mt-1.5">
+                  <ShieldCheck className="w-4 h-4 text-[#2B580C]" /> 24/7 Roadside
                 </span>
               </div>
             </div>
@@ -133,9 +135,6 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs uppercase font-bold tracking-widest text-[#47516a]">
                 {car.transmission} · {car.seats} SEATER · {car.category?.toUpperCase() || 'HERITAGE'}
-              </span>
-              <span className="text-xs font-bold text-[#203a78] bg-[#d8e3fb] px-2.5 py-0.5 border border-[#203a78]/30">
-                Ready for collection
               </span>
             </div>
             <h1 className="font-['Anton',sans-serif] text-5xl md:text-6xl text-[#18274b] tracking-tight">

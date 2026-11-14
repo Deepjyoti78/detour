@@ -21,11 +21,25 @@ export default function VehicleCard({ car }: VehicleCardProps) {
       layout
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      whileHover={{ y: -5, transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } }}
-      whileTap={{ scale: 0.985, y: 1 }}
-      transition={{ duration: 0.25 }}
-      className="card-tactile flex flex-col justify-between border border-[#a9aa9c] bg-[#faf2db] overflow-hidden"
+      exit={{ opacity: 0, scale: 0.96 }}
+      whileHover={{
+        y: -6,
+        boxShadow: '6px 6px 0px #18274b',
+        borderColor: '#18274b',
+        transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] },
+      }}
+      whileTap={{
+        scale: 0.99,
+        y: 1,
+        boxShadow: '2px 2px 0px #18274b',
+        transition: { duration: 0.1 },
+      }}
+      transition={{
+        duration: 0.35,
+        ease: [0.22, 1, 0.36, 1],
+        layout: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+      }}
+      className="flex flex-col justify-between border border-[#a9aa9c] bg-[#faf2db] overflow-hidden shadow-[2px_2px_0px_#18274b]/15"
     >
       <div>
         {/* Photo Header - Clickable to single car view */}

@@ -74,15 +74,15 @@ export default function HomePage() {
         <div className="flex flex-wrap items-center gap-2.5 mb-10">
           {[
             { id: 'all', label: 'All Fleet', count: 6 },
-            { id: 'classic', label: 'Scenic Classics', count: 3 },
-            { id: 'city', label: 'City Runabouts', count: 3 },
-            { id: 'touring', label: 'Modern Touring', count: 3 },
+            { id: 'classic', label: 'Scenic Classics', count: CARS.filter(c => c.category === 'classic').length },
+            { id: 'city', label: 'City Runabouts', count: CARS.filter(c => c.category === 'city').length },
+            { id: 'touring', label: 'Modern Touring', count: CARS.filter(c => c.category === 'touring').length },
           ].map((tab) => (
             <button
               key={tab.id}
               type="button"
               onClick={() => setSelectedCategory(tab.id as 'all' | 'classic' | 'city' | 'touring')}
-              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[#18274b] transition-all cursor-pointer ${
+              className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-2 border-[#18274b] transition-all duration-200 cursor-pointer ${
                 selectedCategory === tab.id
                   ? 'bg-[#18274b] text-[#faf2db] shadow-[3px_3px_0px_#18274b]'
                   : 'bg-[#faf2db] text-[#18274b] hover:bg-[#fce466] shadow-[2px_2px_0px_#18274b]'
@@ -93,9 +93,13 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Cars Grid - 2 rows of 3 cars = 6 cars, or 3 per category */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <AnimatePresence>
+        {/* Cars Grid - 2 rows of 3 cars = 6 cars, or filtered category */}
+        <motion.div
+          layout
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <AnimatePresence mode="popLayout">
             {displayedCars.map((car) => (
               <VehicleCard key={car.id} car={car} />
             ))}

@@ -71,7 +71,7 @@ main {
   border: 2px solid #18274b;
   box-shadow: 3px 3px 0px #18274b;
   font-weight: 700;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
   will-change: transform, box-shadow;
 }
 
@@ -81,9 +81,9 @@ main {
 }
 
 .btn-tactile-yellow:active {
-  transform: translate(2px, 2px);
+  transform: translate(1px, 1px);
   box-shadow: 1px 1px 0px #18274b;
-  transition-duration: 0.08s;
+  transition-duration: 0.1s;
 }
 
 .btn-tactile-outline {
@@ -92,7 +92,7 @@ main {
   border: 2px solid #18274b;
   box-shadow: 3px 3px 0px #18274b;
   font-weight: 700;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+  transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.26s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease;
   will-change: transform, box-shadow;
 }
 
@@ -103,9 +103,9 @@ main {
 }
 
 .btn-tactile-outline:active {
-  transform: translate(2px, 2px);
+  transform: translate(1px, 1px);
   box-shadow: 1px 1px 0px #18274b;
-  transition-duration: 0.08s;
+  transition-duration: 0.1s;
 }
 
 /* Vintage ticket perforation */
@@ -126,18 +126,18 @@ main {
 .card-tactile {
   border: 1px solid #a9aa9c;
   background: #faf2db;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
   will-change: transform, box-shadow;
 }
 
 .card-tactile:hover {
   border-color: #18274b;
   transform: translateY(-5px);
-  box-shadow: 7px 7px 0px #18274b;
+  box-shadow: 6px 6px 0px #18274b;
 }
 
 .card-tactile:active {
-  transform: translateY(2px);
+  transform: translateY(1px);
   box-shadow: 2px 2px 0px #18274b;
   transition-duration: 0.1s;
 }

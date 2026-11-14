@@ -76,8 +76,8 @@ export default function ExplorePage() {
             return (
               <motion.article
                 key={drive.id}
-                whileHover={{ x: 6, transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] } }}
-                whileTap={{ scale: 0.985, x: 2 }}
+                whileHover={{ x: 6, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
+                whileTap={{ scale: 0.99, x: 2, transition: { duration: 0.1 } }}
                 onClick={() => setActiveDriveId(drive.id)}
                 className={`card-tactile p-5 sm:p-6 border-2 cursor-pointer transition-all ${
                   isCurrent

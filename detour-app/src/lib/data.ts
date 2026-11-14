@@ -87,6 +87,20 @@ export const CARS: Car[] = [
     description: 'Quiet, zero-emission urban sprint with instant electric torque.',
     bestFor: 'Eco-friendly daily commutes, city hopping, and smooth quiet drives.',
   },
+  {
+    id: 'urbanist',
+    name: 'The Urbanist',
+    category: 'city',
+    rate: 55,
+    seats: 4,
+    luggage: 2,
+    closedDay: 2, // Tuesday
+    transmission: 'Manual',
+    image: '/assets/metro.jpg',
+    alt: 'Retro-styled nimble city runabout',
+    description: 'Brisk city hatchback with tight turning circle and effortless street parking.',
+    bestFor: 'Downtown coffee runs, historic city districts, and daily errands.',
+  },
   // Touring Category
   {
     id: 'touring',

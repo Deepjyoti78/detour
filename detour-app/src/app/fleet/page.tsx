@@ -122,8 +122,12 @@ export default function FleetPage() {
       </div>
 
       {/* Grid of Vehicles with Layout Animation */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <AnimatePresence>
+      <motion.div
+        layout
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        <AnimatePresence mode="popLayout">
           {filteredCars.map((car) => (
             <VehicleCard key={car.id} car={car} />
           ))}
