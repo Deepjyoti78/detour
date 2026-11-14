@@ -10,23 +10,23 @@ import { ArrowRight, Users, Briefcase, Cog } from 'lucide-react';
 
 interface VehicleCardProps {
   car: Car;
+  index?: number;
 }
 
-export default function VehicleCard({ car }: VehicleCardProps) {
+export default function VehicleCard({ car, index = 0 }: VehicleCardProps) {
   const { trip } = useTripStore();
   const quote = calculateQuote(car, trip);
 
   return (
     <motion.article
-      layout
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 24, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.96 }}
       whileHover={{
         y: -6,
         boxShadow: '6px 6px 0px #18274b',
         borderColor: '#18274b',
-        transition: { duration: 0.26, ease: [0.22, 1, 0.36, 1] },
+        transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] },
       }}
       whileTap={{
         scale: 0.99,
@@ -35,11 +35,11 @@ export default function VehicleCard({ car }: VehicleCardProps) {
         transition: { duration: 0.1 },
       }}
       transition={{
-        duration: 0.35,
+        duration: 0.32,
+        delay: index * 0.05,
         ease: [0.22, 1, 0.36, 1],
-        layout: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
       }}
-      className="flex flex-col justify-between border border-[#a9aa9c] bg-[#faf2db] overflow-hidden shadow-[2px_2px_0px_#18274b]/15"
+      className="flex flex-col justify-between border border-[#a9aa9c] bg-[#faf2db] overflow-hidden shadow-[2px_2px_0px_#18274b]/15 transition-colors"
     >
       <div>
         {/* Photo Header - Clickable to single car view */}
