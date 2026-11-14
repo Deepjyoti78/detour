@@ -83,7 +83,7 @@ export default function FleetPage() {
   };
 
   return (
-    <div className="w-[90%] max-w-7xl mx-auto py-6 md:py-10">
+    <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-6 md:py-10">
       {/* Mobile Filter Toggle Button */}
       <div className="lg:hidden mb-6">
         <button
@@ -102,10 +102,10 @@ export default function FleetPage() {
       </div>
 
       {/* Main 2-Column Layout: Left Sidebar Filters + Right Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-9 items-start">
         {/* Left Column: Filter Panel (Shifted higher up on scroll via lg:top-6) */}
         <aside
-          className={`lg:col-span-4 xl:col-span-3 lg:sticky lg:top-6 z-20 transition-all ${
+          className={`w-full lg:w-[260px] xl:w-[275px] shrink-0 lg:sticky lg:top-6 z-20 transition-all ${
             mobileFilterOpen ? 'block' : 'hidden lg:block'
           }`}
         >
@@ -251,7 +251,7 @@ export default function FleetPage() {
         </aside>
 
         {/* Right Column: Title + Results Bar + Fleet Grid */}
-        <section className="lg:col-span-8 xl:col-span-9 flex flex-col gap-6 min-h-[720px]">
+        <section className="flex-1 min-w-0 flex flex-col gap-6 min-h-[720px]">
           {/* Title and subtitle without dividing border line */}
           <div className="pb-2">
             <h1 className="font-['Anton',sans-serif] text-4xl sm:text-5xl lg:text-6xl text-[#18274b] tracking-tight">
@@ -333,7 +333,7 @@ export default function FleetPage() {
           {/* Grid of Vehicles with Loading Animation & Staggered Reveal */}
           {isLoading ? (
             /* Tactile Retro Loading Skeleton State */
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7">
               {[1, 2, 3].map((skeletonId) => (
                 <div
                   key={skeletonId}
@@ -371,7 +371,7 @@ export default function FleetPage() {
                   },
                 },
               }}
-              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-7"
             >
               <AnimatePresence mode="wait">
                 {filteredCars.map((car, idx) => (

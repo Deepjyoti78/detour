@@ -38,7 +38,7 @@ export default function SiteHeader() {
             : 'relative bg-[#faf2db] text-[#18274b] border-b border-[#a9aa9c]'
         }`}
       >
-        <div className="w-[90%] max-w-7xl mx-auto flex items-center justify-between gap-6 py-3.5 md:py-4">
+        <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex items-center justify-between gap-6 py-3.5 md:py-4">
           {/* Brand */}
           <Link
             href="/"

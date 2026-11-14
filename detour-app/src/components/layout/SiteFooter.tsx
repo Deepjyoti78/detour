@@ -12,7 +12,7 @@ export default function SiteFooter() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="bg-[#203a78] text-[#faf2db] mt-auto"
     >
-      <div className="w-[90%] max-w-7xl mx-auto py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <Link
           href="/"
           className="inline-flex items-center gap-3 font-['Anton',sans-serif] text-2xl tracking-wider hover:opacity-90 transition-opacity"
