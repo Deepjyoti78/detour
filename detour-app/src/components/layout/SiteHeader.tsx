@@ -6,6 +6,7 @@ import { useBookingStore } from '@/stores/bookingStore';
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import AuthModal from '@/components/auth/AuthModal';
+import { motion } from 'motion/react';
 
 export default function SiteHeader() {
   const pathname = usePathname();
@@ -25,7 +26,10 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: -32, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         className={`z-40 w-full transition-colors ${
           isHome
             ? mobileOpen
@@ -175,7 +179,7 @@ export default function SiteHeader() {
             </div>
           </div>
         )}
-      </header>
+      </motion.header>
 
       {/* Auth Pop-up Modal (Matching Image 3) */}
       <AuthModal

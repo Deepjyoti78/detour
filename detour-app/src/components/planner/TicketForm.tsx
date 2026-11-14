@@ -43,7 +43,12 @@ export default function TicketForm() {
   return (
     <div className="w-full max-w-[480px] border-2 border-[#18274b] shadow-2xl shadow-black/50 bg-[#faf2db] relative z-20">
       {/* Header Banner - Detour Navy */}
-      <div className="bg-[#203a78] text-[#faf2db] p-5 sm:p-7 pb-4 sm:pb-6 border-b-2 border-[#18274b]">
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className="bg-[#203a78] text-[#faf2db] p-5 sm:p-7 pb-4 sm:pb-6 border-b-2 border-[#18274b]"
+      >
         <div className="flex items-center gap-2 sm:gap-3 text-[11px] sm:text-xs tracking-[0.2em] font-bold text-[#d8e3fb] mb-2 sm:mb-2.5">
           <span>SELF-DRIVE CAR RENTAL</span>
           <span className="flex-1 h-px bg-[#d8e3fb]/40" />
@@ -51,7 +56,7 @@ export default function TicketForm() {
         <h1 className="font-['Anton',sans-serif] text-4xl sm:text-6xl leading-[0.92] tracking-tight">
           GET OUT <span className="text-[#fce466] block">OF TOWN.</span>
         </h1>
-      </div>
+      </motion.div>
 
       {/* Ticket Perforated Body - Paper Cream */}
       <div className="p-5 sm:p-7 relative ticket-perforation bg-[#faf2db]">
@@ -100,7 +105,11 @@ export default function TicketForm() {
             {/* Inputs Column */}
             <div className="flex-1 flex flex-col gap-3.5 sm:gap-4 min-w-0">
               {/* Location field */}
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.38 }}
+              >
                 <label
                   htmlFor="location-trigger"
                   className="block font-bold text-xs uppercase tracking-wider text-[#47516a] mb-1.5"
@@ -152,10 +161,14 @@ export default function TicketForm() {
                     </div>
                   )}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Dates field */}
-              <div>
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.48 }}
+              >
                 <span className="block font-bold text-xs uppercase tracking-wider text-[#47516a] mb-1.5">
                   Rental dates
                 </span>
@@ -168,12 +181,15 @@ export default function TicketForm() {
                     setReturn(r);
                   }}
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Submit Button */}
           <motion.button
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.58 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
             className="w-full py-3 sm:py-3.5 mt-1 btn-tactile-yellow flex items-center justify-center gap-2 sm:gap-2.5 font-['Anton',sans-serif] text-lg sm:text-2xl tracking-wider uppercase rounded-none group cursor-pointer text-[#18274b]"

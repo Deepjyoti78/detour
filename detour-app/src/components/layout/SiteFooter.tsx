@@ -1,8 +1,17 @@
+'use client';
+
 import Link from 'next/link';
+import { motion } from 'motion/react';
 
 export default function SiteFooter() {
   return (
-    <footer className="bg-[#203a78] text-[#faf2db] mt-auto">
+    <motion.footer
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="bg-[#203a78] text-[#faf2db] mt-auto"
+    >
       <div className="w-[90%] max-w-7xl mx-auto py-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <Link
           href="/"
@@ -31,6 +40,6 @@ export default function SiteFooter() {
           Self-Drive Car Rental · Demo
         </span>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
