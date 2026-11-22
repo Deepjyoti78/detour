@@ -1,38 +1,92 @@
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
-import './globals.css';
-import SiteHeader from '@/components/layout/SiteHeader';
-import SiteFooter from '@/components/layout/SiteFooter';
-import SmoothScrollProvider from '@/components/providers/SmoothScrollProvider';
+import Providers from '@/components/layout/providers';
+import { Toaster } from '@/components/ui/sonner';
+import { fontVariables } from '@/components/themes/font.config';
+import { DEFAULT_THEME, THEMES } from '@/components/themes/theme.config';
+import ThemeProvider from '@/components/themes/theme-provider';
+import { cn } from '@/lib/utils';
+import type { Metadata, Viewport } from 'next';
+import { cookies } from 'next/headers';
+import NextTopLoader from 'nextjs-toploader';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import '../styles/globals.css';
 
-export const metadata: Metadata = {
-  title: 'Detour Car Rental | Scenic Drives & Classic Road Trips',
-  description: 'Self-drive car rental demo specializing in curated scenic drives across India.',
+const META_THEME_COLORS = {
+  light: '#faf2db',
+  dark: '#09090b'
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const metadata: Metadata = {
+  ...(process.env.NEXT_PUBLIC_APP_URL
+    ? { metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL) }
+    : {}),
+  title: {
+    default: 'DETOUR | Car Rental & Fleet Operations',
+    template: '%s | Detour Car Rental'
+  },
+  description:
+    'Self-drive car rental platform and fleet command operations across India.',
+  openGraph: {
+    title: 'DETOUR | Car Rental & Fleet Operations',
+    description:
+      'Self-drive car rental platform and fleet command operations across India.',
+    siteName: 'Detour Car Rental',
+    type: 'website'
+  }
+};
+
+export const viewport: Viewport = {
+  themeColor: META_THEME_COLORS.light
+};
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  let themeToApply = DEFAULT_THEME;
+  try {
+    const cookieStore = await cookies();
+    const activeThemeValue = cookieStore.get('active_theme')?.value;
+    const isValidTheme = THEMES.some((t) => t.value === activeThemeValue);
+    if (isValidTheme && activeThemeValue) {
+      themeToApply = activeThemeValue;
+    }
+  } catch {
+    // fallback during static page prerendering
+  }
+
   return (
-    <html lang="en">
-      <body className="antialiased bg-[#faf2db] text-[#18274b] min-h-screen flex flex-col font-['HK',sans-serif]">
-        <SmoothScrollProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-5 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#fce466] focus:text-[#18274b] focus:font-bold border border-[#18274b]"
+    <html lang='en' suppressHydrationWarning data-theme={themeToApply}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', '${META_THEME_COLORS.dark}')
+                }
+              } catch (_) {}
+            `
+          }}
+        />
+      </head>
+      <body
+        className={cn(
+          'bg-background text-foreground overflow-x-hidden overscroll-none font-sans antialiased min-h-screen',
+          fontVariables
+        )}
+      >
+        <NextTopLoader color='var(--primary)' showSpinner={false} />
+        <NuqsAdapter>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+            enableColorScheme
           >
-            Skip to main content
-          </a>
-          <Suspense fallback={<header className="border-b border-[#a9aa9c] bg-[#faf2db] min-h-[89px]" />}>
-            <SiteHeader />
-          </Suspense>
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
-          <SiteFooter />
-        </SmoothScrollProvider>
+            <Providers activeThemeValue={themeToApply}>
+              <Toaster />
+              {children}
+            </Providers>
+          </ThemeProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

@@ -45,6 +45,7 @@ export default function VehicleCard({ car, index = 0 }: VehicleCardProps) {
         {/* Photo Header - Clickable to single car view */}
         <Link
           href={`/car/${car.id}`}
+          prefetch={true}
           className="group block relative h-56 w-full overflow-hidden border-b border-[#a9aa9c] bg-[#203a78]"
         >
           <Image
@@ -68,7 +69,7 @@ export default function VehicleCard({ car, index = 0 }: VehicleCardProps) {
         <div className="p-6">
           <div className="flex items-start justify-between gap-4 mb-3">
             <div>
-              <Link href={`/car/${car.id}`} className="hover:opacity-85 transition-opacity">
+              <Link href={`/car/${car.id}`} prefetch={true} className="hover:opacity-85 transition-opacity">
                 <h2 className="font-['Anton',sans-serif] text-2xl tracking-wide text-[#18274b]">
                   {car.name}
                 </h2>
@@ -77,13 +78,13 @@ export default function VehicleCard({ car, index = 0 }: VehicleCardProps) {
                 {car.description}
               </p>
             </div>
-            {/* Price section: day text is beside and on the left side of the rate */}
+            {/* Price section: rate followed by / day */}
             <div className="flex items-baseline gap-1.5 justify-end text-right shrink-0">
-              <span className="text-xs uppercase font-bold text-[#47516a]">
-                / day
-              </span>
               <span className="font-['Anton',sans-serif] text-2xl sm:text-3xl text-[#18274b]">
                 {formatMoney(car.rate)}
+              </span>
+              <span className="text-xs uppercase font-bold text-[#47516a]">
+                / day
               </span>
             </div>
           </div>
@@ -118,6 +119,7 @@ export default function VehicleCard({ car, index = 0 }: VehicleCardProps) {
       <div className="p-6 pt-0 flex flex-col gap-2">
         <Link
           href={`/car/${car.id}`}
+          prefetch={true}
           className="btn-tactile-yellow py-2.5 px-4 text-center font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2 group text-[#18274b]"
         >
           <span>Select & Book car</span>
@@ -127,12 +129,14 @@ export default function VehicleCard({ car, index = 0 }: VehicleCardProps) {
         <div className="flex items-center justify-between text-xs font-bold pt-2">
           <Link
             href={`/car/${car.id}`}
+            prefetch={true}
             className="px-2 py-1 -ml-2 text-[#47516a] hover:text-[#18274b] hover:bg-[#18274b]/10 transition-colors"
           >
             View details →
           </Link>
           <Link
             href={`/compare?cars=${car.id}`}
+            prefetch={true}
             className="px-2 py-1 -mr-2 text-[#203a78] hover:text-[#18274b] hover:bg-[#18274b]/10 transition-colors"
           >
             Compare car →

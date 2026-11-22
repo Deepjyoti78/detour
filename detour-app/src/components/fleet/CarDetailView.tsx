@@ -43,6 +43,7 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
       <div className="flex items-center justify-between mb-6">
         <Link
           href="/fleet"
+          prefetch={true}
           className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#47516a] hover:text-[#18274b] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -66,11 +67,6 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 60vw"
             />
-            {car.category && (
-              <div className="absolute top-4 left-4 bg-[#fce466] text-[#18274b] text-xs font-bold px-3 py-1 tracking-wider uppercase border border-[#18274b] shadow-[2px_2px_0px_#18274b]">
-                {car.category} Series
-              </div>
-            )}
             <div className="absolute top-4 right-4 bg-[#18274b] text-[#faf2db] text-xs font-bold px-3 py-1 tracking-wider uppercase border border-[#a9aa9c]">
               {car.transmission}
             </div>
@@ -151,13 +147,13 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
               RESERVE {car.name.toUpperCase()}
             </h2>
 
-            {/* Pricing Header: / day on the left side of the rate */}
+            {/* Pricing Header: rate followed by / day */}
             <div className="flex items-baseline justify-between mb-4 pb-3 border-b border-[#a9aa9c]/50">
               <div className="flex items-baseline gap-1.5">
-                <span className="text-xs uppercase font-bold text-[#47516a]">/ day</span>
                 <span className="font-['Anton',sans-serif] text-4xl text-[#18274b]">
                   {formatMoney(car.rate)}
                 </span>
+                <span className="text-xs uppercase font-bold text-[#47516a]">/ day</span>
               </div>
               <div className="text-right">
                 <span className="text-xs text-[#47516a] font-bold block">Estimated Total</span>
@@ -223,6 +219,7 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
             {/* Direct Booking Action Button */}
             <Link
               href={`/booking?car=${car.id}`}
+              prefetch={true}
               className="btn-tactile-yellow w-full py-3.5 px-6 flex items-center justify-center gap-2 font-bold text-sm tracking-wider uppercase group text-[#18274b] mt-5"
             >
               <span>Continue to booking</span>
@@ -232,12 +229,14 @@ export default function CarDetailView({ car }: CarDetailViewProps) {
             <div className="mt-4 pt-3 border-t border-[#a9aa9c]/60 flex items-center justify-between text-xs font-bold">
               <Link
                 href={`/compare?cars=${car.id}`}
+                prefetch={true}
                 className="text-[#203a78] hover:bg-[#18274b]/10 px-2 py-1 -ml-2 transition-colors"
               >
                 Compare with other fleet cars →
               </Link>
               <Link
                 href="/locations"
+                prefetch={true}
                 className="text-[#47516a] hover:text-[#18274b] px-2 py-1 transition-colors"
               >
                 Depot directions ({selectedLocation.name.split(' ')[0]})

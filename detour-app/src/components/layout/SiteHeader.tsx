@@ -7,13 +7,18 @@ import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import AuthModal from '@/components/auth/AuthModal';
 import { motion } from 'motion/react';
+import { useUser, useClerk } from '@clerk/nextjs';
 
 export default function SiteHeader() {
   const pathname = usePathname();
   const { profile, clearProfile } = useBookingStore();
+  const { user, isSignedIn } = useUser();
+  const { signOut } = useClerk();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+  const activeUserName = isSignedIn && user ? (user.firstName || user.fullName || 'Account') : profile?.name;
 
   const isHome = pathname === '/';
 
@@ -42,6 +47,7 @@ export default function SiteHeader() {
           {/* Brand */}
           <Link
             href="/"
+            prefetch={true}
             className={`inline-flex items-center gap-2.5 font-['Anton',sans-serif] text-2xl md:text-3xl tracking-wider transition-opacity hover:opacity-90 ${
               isHome ? (mobileOpen ? 'text-[#18274b]' : 'text-[#faf2db]') : 'text-[#18274b]'
             }`}
@@ -71,6 +77,7 @@ export default function SiteHeader() {
                 <Link
                   key={link.href}
                   href={link.href}
+                  prefetch={true}
                   className={`px-3 py-1.5 transition-all font-bold text-xs uppercase tracking-wider border ${
                     isActive
                       ? 'bg-[#18274b] text-[#faf2db] border-[#18274b] shadow-[2px_2px_0px_#18274b]'
@@ -82,21 +89,24 @@ export default function SiteHeader() {
               );
             })}
 
-            {profile ? (
+            {activeUserName ? (
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
                   className="px-3.5 py-1.5 border border-[#18274b] text-xs uppercase tracking-wider font-bold bg-[#faf2db] text-[#18274b] hover:bg-[#fce466] transition-colors cursor-pointer inline-flex items-center gap-1.5"
                 >
-                  <span>{profile.name}</span>
+                  <span>{activeUserName}</span>
                 </button>
                 {userMenuOpen && (
                   <div className="absolute right-0 top-full mt-1.5 w-36 bg-[#faf2db] border-2 border-[#18274b] shadow-[4px_4px_0px_#18274b] py-1 z-50">
                     <button
                       type="button"
-                      onClick={() => {
+                      onClick={async () => {
                         clearProfile();
+                        try {
+                          await signOut();
+                        } catch {}
                         setUserMenuOpen(false);
                       }}
                       className="w-full text-left px-3.5 py-2 text-xs font-bold text-[#18274b] hover:bg-[#fce466] cursor-pointer"
@@ -141,6 +151,7 @@ export default function SiteHeader() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={true}
                 onClick={() => setMobileOpen(false)}
                 className="py-2.5 px-3 text-base font-bold border-b border-[#a9aa9c]/30 text-[#18274b] hover:bg-[#18274b]/10 transition-colors"
               >
@@ -148,15 +159,18 @@ export default function SiteHeader() {
               </Link>
             ))}
             <div className="pt-2">
-              {profile ? (
+              {activeUserName ? (
                 <div className="flex items-center justify-between py-2 border-t border-[#a9aa9c]/30">
                   <span className="font-bold text-sm text-[#18274b] uppercase tracking-wider">
-                    {profile.name}
+                    {activeUserName}
                   </span>
                   <button
                     type="button"
-                    onClick={() => {
+                    onClick={async () => {
                       clearProfile();
+                      try {
+                        await signOut();
+                      } catch {}
                       setMobileOpen(false);
                     }}
                     className="text-xs font-bold uppercase px-3 py-1.5 bg-[#18274b] text-[#faf2db] hover:bg-[#203a78] border border-[#18274b] cursor-pointer transition-colors"

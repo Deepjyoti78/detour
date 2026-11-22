@@ -26,3 +26,11 @@ desktop.ini
 
 # Vercel
 .vercel/
+
+# Local submodules and IDE folders
+/dashboard/
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
+

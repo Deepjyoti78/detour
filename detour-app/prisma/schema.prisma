@@ -1,0 +1,297 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+enum Role {
+  ADMIN
+  OPERATOR
+  CUSTOMER
+}
+
+enum VehicleCategory {
+  CLASSIC
+  CITY
+  TOURING
+  ELECTRIC
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  RENTED
+  MAINTENANCE
+  IN_TRANSIT
+  RETIRED
+}
+
+enum BookingStatus {
+  DRAFT
+  CONFIRMED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentProvider {
+  STRIPE
+  RAZORPAY
+  CASH_ON_PICKUP
+  DEMO
+}
+
+enum DepositStatus {
+  HELD
+  RELEASED
+  PARTIALLY_CAPTURED
+  FORFEITED
+}
+
+enum InspectionType {
+  PRE_DEPARTURE
+  POST_RETURN
+}
+
+model User {
+  id          String   @id @default(cuid())
+  clerkId     String?  @unique
+  email       String   @unique
+  firstName   String?
+  lastName    String?
+  phone       String?
+  role        Role     @default(CUSTOMER)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  bookings    Booking[]
+  inspections InspectionRecord[]
+
+  @@index([email])
+  @@index([clerkId])
+}
+
+model Depot {
+  id             String   @id @default(cuid())
+  code           String   @unique
+  name           String
+  city           String
+  state          String
+  country        String   @default("IN")
+  address        String
+  latitude       Float
+  longitude      Float
+  capacity       Int      @default(20)
+  contactPhone   String?
+  operatingHours String   @default("06:00 - 23:00")
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  vehicles       Vehicle[]
+  pickupBookings Booking[] @relation("PickupDepot")
+  returnBookings Booking[] @relation("ReturnDepot")
+  originRoutes   ScenicRoute[] @relation("OriginRoutes")
+  destRoutes     ScenicRoute[] @relation("DestinationRoutes")
+
+  @@index([city])
+  @@index([isActive])
+}
+
+model VehicleModel {
+  id               String          @id @default(cuid())
+  slug             String          @unique
+  name             String
+  category         VehicleCategory
+  headline         String
+  shortDescription String
+  description      String
+  baseDailyRate    Decimal         @db.Decimal(10, 2)
+  depositAmount    Decimal         @db.Decimal(10, 2)
+  transmission     String          @default("Automatic")
+  seats            Int             @default(4)
+  luggage          String          @default("2 Bags")
+  engine           String?
+  range            String?
+  fuelType         String          @default("Gasoline")
+  topSpeed         String?
+  acceleration     String?
+  heroImage        String
+  gallery          String[]        @default([])
+  features         String[]        @default([])
+  isAvailable      Boolean         @default(true)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+
+  vehicles         Vehicle[]
+  bookings         Booking[]
+  scenicRoutes     ScenicRoute[]
+
+  @@index([category])
+  @@index([isAvailable])
+}
+
+model Vehicle {
+  id                    String        @id @default(cuid())
+  modelId               String
+  model                 VehicleModel  @relation(fields: [modelId], references: [id], onDelete: Restrict)
+  depotId               String
+  depot                 Depot         @relation(fields: [depotId], references: [id], onDelete: Restrict)
+  vin                   String        @unique
+  licensePlate          String        @unique
+  color                 String
+  year                  Int
+  currentMileage        Int           @default(0)
+  fuelOrBatteryLevel    Int           @default(100)
+  status                VehicleStatus @default(AVAILABLE)
+  lastServiceDate       DateTime?
+  nextServiceDueMileage Int?
+  conditionNotes        String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  bookings              Booking[]
+  inspections           InspectionRecord[]
+
+  @@index([modelId])
+  @@index([depotId])
+  @@index([status])
+}
+
+model Booking {
+  id                  String        @id @default(cuid())
+  referenceNumber     String        @unique
+  customerId          String?
+  customer            User?         @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  modelId             String
+  model               VehicleModel  @relation(fields: [modelId], references: [id], onDelete: Restrict)
+  vehicleId           String?
+  vehicle             Vehicle?      @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  pickupDepotId       String
+  pickupDepot         Depot         @relation("PickupDepot", fields: [pickupDepotId], references: [id], onDelete: Restrict)
+  returnDepotId       String
+  returnDepot         Depot         @relation("ReturnDepot", fields: [returnDepotId], references: [id], onDelete: Restrict)
+  pickupDate          DateTime
+  returnDate          DateTime
+  status              BookingStatus @default(CONFIRMED)
+  totalDays           Int
+  dailyRate           Decimal       @db.Decimal(10, 2)
+  optionsFee          Decimal       @default(0) @db.Decimal(10, 2)
+  serviceFee          Decimal       @default(0) @db.Decimal(10, 2)
+  securityDeposit     Decimal       @default(0) @db.Decimal(10, 2)
+  totalAmount         Decimal       @db.Decimal(10, 2)
+  driverName          String
+  driverEmail         String
+  driverPhone         String
+  driverLicenseNumber String?
+  selectedOptions     Json?
+  specialRequests     String?
+  cancellationReason  String?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+
+  payments            Payment[]
+  depositHolds        SecurityDepositHold[]
+  inspections         InspectionRecord[]
+
+  @@index([customerId])
+  @@index([modelId])
+  @@index([vehicleId])
+  @@index([pickupDepotId])
+  @@index([status])
+  @@index([pickupDate, returnDate])
+}
+
+model Payment {
+  id                String          @id @default(cuid())
+  bookingId         String
+  booking           Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  amount            Decimal         @db.Decimal(10, 2)
+  currency          String          @default("USD")
+  status            PaymentStatus   @default(PENDING)
+  provider          PaymentProvider @default(DEMO)
+  transactionId     String?
+  paymentMethodType String?
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  @@index([bookingId])
+  @@index([status])
+}
+
+model SecurityDepositHold {
+  id                String        @id @default(cuid())
+  bookingId         String
+  booking           Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  amount            Decimal       @db.Decimal(10, 2)
+  status            DepositStatus @default(HELD)
+  authorizationCode String?
+  heldAt            DateTime      @default(now())
+  releasedAt        DateTime?
+  deductionAmount   Decimal       @default(0) @db.Decimal(10, 2)
+  deductionReason   String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([bookingId])
+  @@index([status])
+}
+
+model InspectionRecord {
+  id                String         @id @default(cuid())
+  bookingId         String
+  booking           Booking        @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  vehicleId         String
+  vehicle           Vehicle        @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
+  inspectorId       String?
+  inspector         User?          @relation(fields: [inspectorId], references: [id], onDelete: SetNull)
+  type              InspectionType
+  fuelLevelPercent  Int
+  mileage           Int
+  exteriorCondition String         @default("Good")
+  interiorCondition String         @default("Good")
+  tiresOk           Boolean        @default(true)
+  lightsOk          Boolean        @default(true)
+  allClear          Boolean        @default(true)
+  damageDetails     Json?
+  photos            String[]       @default([])
+  notes             String?
+  inspectionDate    DateTime       @default(now())
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  @@index([bookingId])
+  @@index([vehicleId])
+}
+
+model ScenicRoute {
+  id                 String        @id @default(cuid())
+  slug               String        @unique
+  name               String
+  subtitle           String
+  heroImage          String
+  originDepotId      String
+  originDepot        Depot         @relation("OriginRoutes", fields: [originDepotId], references: [id], onDelete: Restrict)
+  destinationDepotId String
+  destinationDepot   Depot         @relation("DestinationRoutes", fields: [destinationDepotId], references: [id], onDelete: Restrict)
+  distanceMiles      Int
+  durationHours      Decimal       @db.Decimal(4, 1)
+  highlightStops     Json?
+  recommendedModelId String?
+  recommendedModel   VehicleModel? @relation(fields: [recommendedModelId], references: [id], onDelete: SetNull)
+  isFeatured         Boolean       @default(false)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  @@index([originDepotId])
+  @@index([destinationDepotId])
+}

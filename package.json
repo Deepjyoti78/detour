@@ -1,0 +1,20 @@
+{
+  "name": "detour-car-rental-suite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Detour Self-Drive Car Rental Platform & Integrated Fleet Command Dashboard Suite",
+  "scripts": {
+    "dev": "pnpm --prefix detour-app dev",
+    "build": "pnpm --prefix detour-app build",
+    "start": "pnpm --prefix detour-app start"
+  },
+  "keywords": [
+    "detour",
+    "car-rental",
+    "fleet-management",
+    "nextjs",
+    "dashboard"
+  ],
+  "author": "Detour Operations",
+  "license": "MIT"
+}

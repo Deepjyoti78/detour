@@ -96,7 +96,7 @@ export const CARS: Car[] = [
     luggage: 2,
     closedDay: 2, // Tuesday
     transmission: 'Manual',
-    image: '/assets/metro.jpg',
+    image: '/assets/sprint.jpg',
     alt: 'Retro-styled nimble city runabout',
     description: 'Brisk city hatchback with tight turning circle and effortless street parking.',
     bestFor: 'Downtown coffee runs, historic city districts, and daily errands.',
