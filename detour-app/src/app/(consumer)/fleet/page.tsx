@@ -106,7 +106,7 @@ export default function FleetPage() {
         <button
           type="button"
           onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-          className="w-full flex items-center justify-between p-3.5 bg-[#faf2db] border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000] font-bold text-xs uppercase tracking-wider text-[#18274b] cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
+          className="w-full flex items-center justify-between p-3.5 bg-[#faf2db] border-2 border-black rounded-none shadow-[4px_4px_0px_#000000] font-bold text-xs uppercase tracking-wider text-[#18274b] cursor-pointer active:translate-x-0.5 active:translate-y-0.5"
         >
           <span className="flex items-center gap-2">
             <SlidersHorizontal className="w-4 h-4 text-[#18274b]" />
@@ -120,13 +120,13 @@ export default function FleetPage() {
 
       {/* Main 2-Column Layout: Left Sidebar Filters + Right Content */}
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-9 items-start">
-        {/* Left Column: Filter Panel with curved boundaries and clean black bordering */}
+        {/* Left Column: Filter Panel with sharp brutalist boundaries and clean black bordering */}
         <aside
           className={`w-full lg:w-[260px] xl:w-[275px] shrink-0 lg:sticky lg:top-6 z-20 transition-all ${
             mobileFilterOpen ? 'block' : 'hidden lg:block'
           }`}
         >
-          <div className="p-5 bg-[#faf2db] border-2 border-black rounded-2xl shadow-[6px_6px_0px_#000000] flex flex-col gap-5">
+          <div className="p-5 bg-[#faf2db] border-2 border-black rounded-none shadow-[6px_6px_0px_#000000] flex flex-col gap-5">
             {/* Filter Section Header */}
             <div className="flex items-center justify-between pb-3 border-b-2 border-black/20">
               <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export default function FleetPage() {
                     key={cat.id}
                     type="button"
                     onClick={() => handleCategoryChange(cat.id as 'all' | 'classic' | 'city' | 'touring')}
-                    className={`w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold tracking-wider uppercase border-2 rounded-lg transition-all cursor-pointer text-left ${
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 text-xs font-bold tracking-wider uppercase border-2 rounded-none transition-all cursor-pointer text-left ${
                       categoryFilter === cat.id
                         ? 'bg-[#18274b] text-[#faf2db] border-black shadow-[2px_2px_0px_#000000]'
                         : 'bg-[#faf2db] text-[#18274b] border-black/30 hover:border-black hover:bg-[#fce466]/40'
@@ -171,7 +171,7 @@ export default function FleetPage() {
                   >
                     <span>{cat.label}</span>
                     <span
-                      className={`text-[10px] px-1.5 py-0.5 rounded border ${
+                      className={`text-[10px] px-1.5 py-0.5 rounded-none border ${
                         categoryFilter === cat.id
                           ? 'bg-[#fce466] text-[#18274b] border-black'
                           : 'bg-[#faf2db] text-[#47516a] border-[#a9aa9c]'
@@ -195,7 +195,7 @@ export default function FleetPage() {
                     key={trans}
                     type="button"
                     onClick={() => handleTransmissionChange(trans)}
-                    className={`py-2.5 px-1.5 text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-tight whitespace-nowrap border-2 rounded-lg transition-all cursor-pointer ${
+                    className={`py-2.5 px-1.5 text-center text-[10px] sm:text-[11px] font-bold uppercase tracking-tight whitespace-nowrap border-2 rounded-none transition-all cursor-pointer ${
                       transmissionFilter === trans
                         ? 'bg-[#18274b] text-[#faf2db] border-black shadow-[2px_2px_0px_#000000]'
                         : 'bg-[#faf2db] text-[#18274b] border-black/30 hover:border-black hover:bg-[#fce466]/40'
@@ -224,7 +224,7 @@ export default function FleetPage() {
                     key={s.id}
                     type="button"
                     onClick={() => handleSeatsChange(s.id as 'all' | '2' | '4' | '5')}
-                    className={`py-2.5 px-1 text-center text-xs font-bold uppercase tracking-wider border-2 rounded-lg transition-all cursor-pointer ${
+                    className={`py-2.5 px-1 text-center text-xs font-bold uppercase tracking-wider border-2 rounded-none transition-all cursor-pointer ${
                       seatsFilter === s.id
                         ? 'bg-[#18274b] text-[#faf2db] border-black shadow-[2px_2px_0px_#000000]'
                         : 'bg-[#faf2db] text-[#18274b] border-black/30 hover:border-black hover:bg-[#fce466]/40'
@@ -245,7 +245,7 @@ export default function FleetPage() {
                 id="fleet-sort"
                 value={sortOrder}
                 onChange={(e) => handleSortChange(e.target.value as 'default' | 'price-asc' | 'price-desc' | 'seats-desc')}
-                className="w-full p-2.5 bg-[#faf2db] border-2 border-black rounded-lg text-xs font-bold text-[#18274b] outline-none cursor-pointer shadow-[2px_2px_0px_#000000]"
+                className="w-full p-2.5 bg-[#faf2db] border-2 border-black rounded-none text-xs font-bold text-[#18274b] outline-none cursor-pointer shadow-[2px_2px_0px_#000000]"
               >
                 <option value="default">Featured Fleet Order</option>
                 <option value="price-asc">Daily Rate: Low to High</option>
@@ -258,7 +258,7 @@ export default function FleetPage() {
             <div className="pt-2 border-t-2 border-black/15">
               <Link
                 href="/compare"
-                className="w-full py-2.5 px-3 bg-[#d8e3fb] hover:bg-[#c2d6fc] border-2 border-black rounded-lg text-[#18274b] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#000000] transition-all cursor-pointer"
+                className="w-full py-2.5 px-3 bg-[#d8e3fb] hover:bg-[#c2d6fc] border-2 border-black rounded-none text-[#18274b] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-[2px_2px_0px_#000000] transition-all cursor-pointer"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#203a78]" />
                 <span>Compare Vehicles</span>

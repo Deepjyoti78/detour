@@ -42,7 +42,7 @@ export default function MyBookingPage() {
         </p>
         <Link
           href="/fleet"
-          className="btn-tactile-yellow py-3.5 px-6 font-bold text-sm uppercase tracking-wider inline-block text-[#18274b] rounded-lg border-2 border-black shadow-[3px_3px_0px_#000000]"
+          className="btn-tactile-yellow py-3.5 px-6 font-bold text-sm uppercase tracking-wider inline-block text-[#18274b] rounded-none border-2 border-black shadow-[3px_3px_0px_#000000]"
         >
           Browse the fleet →
         </Link>
@@ -70,7 +70,7 @@ export default function MyBookingPage() {
           <span className="text-xs uppercase tracking-widest font-bold text-[#47516a]">
             REF:
           </span>
-          <span className="font-['Anton',sans-serif] text-sm tracking-wider text-[#18274b] bg-[#fce466] px-2.5 py-0.5 border-2 border-black rounded shadow-[2px_2px_0px_#000000]">
+          <span className="font-['Anton',sans-serif] text-sm tracking-wider text-[#18274b] bg-[#fce466] px-2.5 py-0.5 border-2 border-black rounded-none shadow-[2px_2px_0px_#000000]">
             {booking.reference}
           </span>
         </div>
@@ -92,7 +92,7 @@ export default function MyBookingPage() {
 
           <div className="flex items-center gap-3">
             <div
-              className={`px-3 py-1.5 border-2 border-black rounded-lg text-xs font-bold uppercase tracking-wider shadow-[3px_3px_0px_#000000] ${
+              className={`px-3 py-1.5 border-2 border-black rounded-none text-xs font-bold uppercase tracking-wider shadow-[3px_3px_0px_#000000] ${
                 isCancelled ? 'bg-red-100 text-red-900' : 'bg-[#faf2db] text-[#18274b]'
               }`}
             >
@@ -112,7 +112,7 @@ export default function MyBookingPage() {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full bg-[#faf2db] border-2 border-black rounded-2xl shadow-[6px_6px_0px_#000000] overflow-hidden"
+        className="w-full bg-[#faf2db] border-2 border-black rounded-none shadow-[6px_6px_0px_#000000] overflow-hidden"
       >
         {/* Elongated Main Card Banner - Fully Clickable */}
         <div
@@ -136,7 +136,7 @@ export default function MyBookingPage() {
               className="object-cover group-hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 768px) 100vw, 300px"
             />
-            <div className="absolute top-3 left-3 bg-[#18274b] text-[#faf2db] text-[10px] font-bold px-2 py-0.5 tracking-wider uppercase border border-[#a9aa9c] rounded">
+            <div className="absolute top-3 left-3 bg-[#18274b] text-[#faf2db] text-[10px] font-bold px-2 py-0.5 tracking-wider uppercase border border-[#a9aa9c] rounded-none">
               {car.transmission}
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function MyBookingPage() {
             <div>
               {/* Reference & Category Tags */}
               <div className="flex flex-wrap items-center gap-2 mb-2">
-                <span className="text-[11px] font-bold uppercase tracking-wider bg-[#18274b] text-[#faf2db] px-2.5 py-0.5 rounded">
+                <span className="text-[11px] font-bold uppercase tracking-wider bg-[#18274b] text-[#faf2db] px-2.5 py-0.5 rounded-none">
                   {booking.reference}
                 </span>
                 <span className="text-xs uppercase font-bold text-[#47516a]">
@@ -189,7 +189,7 @@ export default function MyBookingPage() {
                 </span>
               </div>
 
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#18274b] text-[#faf2db] rounded-lg text-xs font-bold uppercase tracking-wider group-hover:bg-[#203a78] transition-colors shadow-[2px_2px_0px_#000000]">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#18274b] text-[#faf2db] rounded-none text-xs font-bold uppercase tracking-wider group-hover:bg-[#203a78] transition-colors shadow-[2px_2px_0px_#000000]">
                 <span>{isExpanded ? 'Hide Details' : 'View Details'}</span>
                 {isExpanded ? (
                   <ChevronUp className="w-4 h-4" />
@@ -215,7 +215,7 @@ export default function MyBookingPage() {
                 {/* 2-Column Details: Left Driver & Pricing Breakdown, Right Checklist & Actions */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
                   {/* Driver & Trip Specifics */}
-                  <div className="p-5 bg-[#faf2db] border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000]">
+                  <div className="p-5 bg-[#faf2db] border-2 border-black rounded-none shadow-[4px_4px_0px_#000000]">
                     <h3 className="font-['Anton',sans-serif] text-xl text-[#18274b] tracking-wide mb-3 pb-2 border-b border-black/20">
                       RESERVATION HOLDER & ITINERARY
                     </h3>
@@ -239,7 +239,7 @@ export default function MyBookingPage() {
                     </dl>
 
                     {drive && (
-                      <div className="mt-4 p-3 bg-[#d8e3fb] border border-black rounded-lg text-xs font-bold text-[#18274b] flex items-center gap-2">
+                      <div className="mt-4 p-3 bg-[#d8e3fb] border border-black rounded-none text-xs font-bold text-[#18274b] flex items-center gap-2">
                         <Sparkles className="w-4 h-4 text-[#203a78]" />
                         <span>Scenic Pairing: {drive.name}</span>
                       </div>
@@ -247,7 +247,7 @@ export default function MyBookingPage() {
                   </div>
 
                   {/* Pricing Breakdown Card */}
-                  <div className="p-5 bg-[#faf2db] border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000]">
+                  <div className="p-5 bg-[#faf2db] border-2 border-black rounded-none shadow-[4px_4px_0px_#000000]">
                     <h3 className="font-['Anton',sans-serif] text-xl text-[#18274b] tracking-wide mb-3 pb-2 border-b border-black/20">
                       PRICING BREAKDOWN
                     </h3>
@@ -273,7 +273,7 @@ export default function MyBookingPage() {
                 </div>
 
                 {/* Pick-Up Rules & Checklist */}
-                <div className="p-5 bg-[#faf2db] border-2 border-black rounded-xl shadow-[4px_4px_0px_#000000]">
+                <div className="p-5 bg-[#faf2db] border-2 border-black rounded-none shadow-[4px_4px_0px_#000000]">
                   <h3 className="font-['Anton',sans-serif] text-xl text-[#18274b] tracking-wide mb-3 pb-2 border-b border-black/20">
                     DEPOT CHECK-IN CHECKLIST
                   </h3>
@@ -303,20 +303,20 @@ export default function MyBookingPage() {
                     <div className="flex flex-wrap items-center gap-3">
                       <Link
                         href={`/booking?edit=${encodeURIComponent(booking.reference)}`}
-                        className="btn-tactile-yellow py-2.5 px-4 rounded-lg border-2 border-black font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-[#18274b] shadow-[2px_2px_0px_#000000]"
+                        className="btn-tactile-yellow py-2.5 px-4 rounded-none border-2 border-black font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-[#18274b] shadow-[2px_2px_0px_#000000]"
                       >
                         <span>Edit dates / depot</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                       <Link
                         href={`/pickup-guide?location=${location.id}`}
-                        className="btn-tactile-outline py-2.5 px-4 rounded-lg border-2 border-black font-bold text-xs uppercase tracking-wider text-[#18274b] shadow-[2px_2px_0px_#000000]"
+                        className="btn-tactile-outline py-2.5 px-4 rounded-none border-2 border-black font-bold text-xs uppercase tracking-wider text-[#18274b] shadow-[2px_2px_0px_#000000]"
                       >
                         Pick-up guide
                       </Link>
                       <Link
                         href="/trip-pack"
-                        className="btn-tactile-outline py-2.5 px-4 rounded-lg border-2 border-black font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-[#18274b] shadow-[2px_2px_0px_#000000]"
+                        className="btn-tactile-outline py-2.5 px-4 rounded-none border-2 border-black font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 text-[#18274b] shadow-[2px_2px_0px_#000000]"
                       >
                         <Printer className="w-3.5 h-3.5" />
                         <span>Trip pack</span>
@@ -326,19 +326,19 @@ export default function MyBookingPage() {
                     <button
                       type="button"
                       onClick={() => setCancelOpen(true)}
-                      className="text-xs font-bold uppercase tracking-wider text-red-900 hover:bg-red-100 px-3 py-2 border border-red-400 rounded-lg cursor-pointer transition-colors"
+                      className="text-xs font-bold uppercase tracking-wider text-red-900 hover:bg-red-100 px-3 py-2 border border-red-400 rounded-none cursor-pointer transition-colors"
                     >
                       Cancel reservation
                     </button>
                   </div>
                 ) : (
                   <div className="flex items-center justify-between pt-2">
-                    <span className="text-xs font-bold text-red-900 bg-red-100 px-3 py-1.5 border border-red-300 rounded-lg">
+                    <span className="text-xs font-bold text-red-900 bg-red-100 px-3 py-1.5 border border-red-300 rounded-none">
                       This reservation is cancelled.
                     </span>
                     <Link
                       href="/fleet"
-                      className="btn-tactile-yellow py-2.5 px-5 rounded-lg border-2 border-black font-bold text-xs uppercase tracking-wider text-[#18274b] shadow-[2px_2px_0px_#000000]"
+                      className="btn-tactile-yellow py-2.5 px-5 rounded-none border-2 border-black font-bold text-xs uppercase tracking-wider text-[#18274b] shadow-[2px_2px_0px_#000000]"
                     >
                       Book another vehicle →
                     </Link>
@@ -354,7 +354,7 @@ export default function MyBookingPage() {
       <Dialog.Root open={cancelOpen} onOpenChange={setCancelOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-black/60 z-50 animate-fade-in backdrop-blur-xs" />
-          <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[90%] max-w-md bg-[#faf2db] border-2 border-black rounded-xl shadow-[8px_8px_0px_#000000] p-6 sm:p-8">
+          <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-[90%] max-w-md bg-[#faf2db] border-2 border-black rounded-none shadow-[8px_8px_0px_#000000] p-6 sm:p-8">
             <div className="flex items-center justify-between mb-4">
               <Dialog.Title className="font-['Anton',sans-serif] text-3xl text-[#18274b] tracking-wide flex items-center gap-2">
                 <AlertTriangle className="w-6 h-6 text-red-700" />
@@ -363,7 +363,7 @@ export default function MyBookingPage() {
               <Dialog.Close asChild>
                 <button
                   type="button"
-                  className="p-1 border border-black bg-[#faf2db] hover:bg-[#fce466] text-[#18274b] rounded cursor-pointer"
+                  className="p-1 border border-black bg-[#faf2db] hover:bg-[#fce466] text-[#18274b] rounded-none cursor-pointer"
                   aria-label="Close"
                 >
                   <X className="w-4 h-4" />
@@ -379,7 +379,7 @@ export default function MyBookingPage() {
               <Dialog.Close asChild>
                 <button
                   type="button"
-                  className="btn-tactile-outline py-2.5 px-4 rounded-lg font-bold text-xs uppercase tracking-wider cursor-pointer text-[#18274b]"
+                  className="btn-tactile-outline py-2.5 px-4 rounded-none font-bold text-xs uppercase tracking-wider cursor-pointer text-[#18274b]"
                 >
                   Keep reservation
                 </button>
@@ -390,7 +390,7 @@ export default function MyBookingPage() {
                   cancelBooking();
                   setCancelOpen(false);
                 }}
-                className="py-2.5 px-4 bg-red-800 text-[#faf2db] font-bold text-xs uppercase tracking-wider border-2 border-black rounded-lg shadow-[3px_3px_0px_#000000] hover:bg-red-900 cursor-pointer"
+                className="py-2.5 px-4 bg-red-800 text-[#faf2db] font-bold text-xs uppercase tracking-wider border-2 border-black rounded-none shadow-[3px_3px_0px_#000000] hover:bg-red-900 cursor-pointer"
               >
                 Yes, cancel booking
               </button>

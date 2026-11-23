@@ -107,7 +107,7 @@ export default function LocationsPage() {
                     <span>Collection Depot</span>
                   </div>
                   {stat && (
-                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded border border-[#18274b] bg-[#fce466] text-[#18274b] font-bold text-[10px]">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-none border border-[#18274b] bg-[#fce466] text-[#18274b] font-bold text-[10px]">
                       <CarFront className="w-3 h-3" />
                       {stat.availableVehicles} of {stat.totalFleet} available
                     </span>
