@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "pnpm --prefix detour-app dev",
     "build": "pnpm --prefix detour-app build",
+    "postinstall": "pnpm --prefix detour-app postinstall",
     "start": "pnpm --prefix detour-app start"
   },
   "keywords": [
