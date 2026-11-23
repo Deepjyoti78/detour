@@ -13,27 +13,26 @@ import { Icons } from '@/components/icons';
 import React from 'react';
 import Link from 'next/link';
 
-// Mini Equalizer Sparkline matching Halden KPI cards
+// Mini Equalizer Sparkline of TRUE SQUARES (Halden Style)
 function MiniBlockSparkline({
   heights,
-  activeColor = 'bg-emerald-500'
+  activeColor = 'bg-zinc-900 dark:bg-zinc-100'
 }: {
   heights: number[];
   activeColor?: string;
 }) {
   return (
-    <div className='flex items-end gap-[2px] h-7 px-1.5 py-1 rounded-md bg-muted/40 border border-border/40'>
+    <div className='flex items-end gap-[3px] h-7 px-1.5 py-1 rounded-md bg-muted/30 border border-border/40'>
       {heights.map((h, colIdx) => (
-        <div key={colIdx} className='w-1.5 flex flex-col justify-end gap-[1.5px] h-full'>
+        <div key={colIdx} className='flex flex-col justify-end gap-[2px] h-full'>
           {Array.from({ length: 4 }).map((_, cellIdx) => {
-            // 4 cells high: cell 0 is top, cell 3 is bottom
             const isFilled = 3 - cellIdx < h;
             return (
               <div
                 key={cellIdx}
                 className={cn(
-                  'h-1 w-full rounded-[1px] transition-colors',
-                  isFilled ? activeColor : 'bg-muted/60 dark:bg-muted/40'
+                  'size-1.5 aspect-square rounded-[1px] transition-colors',
+                  isFilled ? activeColor : 'bg-muted/40'
                 )}
               />
             );
@@ -57,9 +56,9 @@ export default function OverViewLayout({
 }) {
   return (
     <PageContainer>
-      <div className='flex flex-1 flex-col gap-5'>
+      <div className='flex flex-1 flex-col gap-4'>
         {/* Header with Title and Operations Controls */}
-        <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-4'>
+        <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-3'>
           <div>
             <div className='flex items-center gap-2.5'>
               <div className='bg-muted text-foreground p-2 rounded-lg border border-border/60'>
@@ -98,10 +97,10 @@ export default function OverViewLayout({
           </div>
         </div>
 
-        {/* Live Depot Utilization Ticker - Clean Monochrome */}
+        {/* Live Depot Utilization Ticker - Minimalist Monochrome */}
         <div className='flex items-center gap-2 overflow-x-auto py-1 text-xs text-muted-foreground no-scrollbar'>
           <span className='font-semibold text-foreground shrink-0 flex items-center gap-1.5'>
-            <span className='size-2 rounded-full bg-emerald-500' />
+            <span className='size-2 rounded-full bg-foreground' />
             Live Depots:
           </span>
           <span className='bg-muted/40 border border-border/40 px-2 py-1 rounded-md shrink-0 text-foreground'>
@@ -113,7 +112,7 @@ export default function OverViewLayout({
           <span className='bg-muted/40 border border-border/40 px-2 py-1 rounded-md shrink-0 text-foreground'>
             Bengaluru: <strong className='font-mono'>7/8 Active (88%)</strong>
           </span>
-          <span className='inline-flex items-center gap-1 bg-emerald-600 text-white font-semibold px-2 py-1 rounded-md shrink-0 text-[11px] shadow-xs'>
+          <span className='inline-flex items-center gap-1 bg-amber-500 text-zinc-950 font-semibold px-2 py-1 rounded-md shrink-0 text-[11px] shadow-xs'>
             Goa: 8/8 (100% Sold Out)
           </span>
           <span className='bg-muted/40 border border-border/40 px-2 py-1 rounded-md shrink-0 text-foreground'>
@@ -124,7 +123,7 @@ export default function OverViewLayout({
           </span>
         </div>
 
-        {/* Primary KPI Stats Cards with Mini Block Sparklines (Halden Style) */}
+        {/* Primary KPI Stats Cards - Sleek Monochrome with Mini Square Sparklines */}
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
           {/* Card 1: Fleet Utilization */}
           <Card className='@container/card border border-border/70 bg-gradient-to-b from-card to-card/60 shadow-xs'>
@@ -137,11 +136,11 @@ export default function OverViewLayout({
                 <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
                   88.4%
                 </CardTitle>
-                <MiniBlockSparkline heights={[2, 3, 3, 4, 4]} activeColor='bg-emerald-500' />
+                <MiniBlockSparkline heights={[2, 3, 3, 4, 4]} activeColor='bg-zinc-900 dark:bg-zinc-100' />
               </div>
               <CardAction>
-                <span className='inline-flex items-center gap-1 rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
-                  <Icons.trendingUp className='size-3 text-white' />
+                <span className='inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-xs font-mono font-semibold text-foreground border border-border/60 shadow-xs'>
+                  <Icons.trendingUp className='size-3' />
                   +6.2%
                 </span>
               </CardAction>
@@ -168,8 +167,8 @@ export default function OverViewLayout({
                 <MiniBlockSparkline heights={[2, 2, 3, 3, 4]} activeColor='bg-amber-500' />
               </div>
               <CardAction>
-                <span className='inline-flex items-center gap-1 rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
-                  <Icons.trendingUp className='size-3 text-white' />
+                <span className='inline-flex items-center gap-1 rounded-md bg-muted px-2 py-0.5 text-xs font-mono font-semibold text-foreground border border-border/60 shadow-xs'>
+                  <Icons.trendingUp className='size-3' />
                   +18.4% YoY
                 </span>
               </CardAction>
@@ -193,10 +192,10 @@ export default function OverViewLayout({
                 <CardTitle className='text-2xl lg:text-3xl font-bold tabular-nums text-foreground tracking-tight whitespace-nowrap'>
                   36 Trips
                 </CardTitle>
-                <MiniBlockSparkline heights={[3, 3, 4, 3, 4]} activeColor='bg-blue-500' />
+                <MiniBlockSparkline heights={[3, 3, 4, 3, 4]} activeColor='bg-zinc-900 dark:bg-zinc-100' />
               </div>
               <CardAction>
-                <span className='inline-flex items-center rounded-md bg-blue-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
+                <span className='inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-xs font-mono font-semibold text-foreground border border-border/60 shadow-xs'>
                   8 Returns Today
                 </span>
               </CardAction>
@@ -220,10 +219,10 @@ export default function OverViewLayout({
                 <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
                   98.2%
                 </CardTitle>
-                <MiniBlockSparkline heights={[4, 4, 4, 3, 4]} activeColor='bg-emerald-500' />
+                <MiniBlockSparkline heights={[4, 4, 4, 3, 4]} activeColor='bg-zinc-900 dark:bg-zinc-100' />
               </div>
               <CardAction>
-                <span className='inline-flex items-center rounded-md bg-amber-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
+                <span className='inline-flex items-center rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 px-2 py-0.5 text-xs font-mono font-semibold shadow-xs'>
                   2 In Service
                 </span>
               </CardAction>
@@ -232,16 +231,16 @@ export default function OverViewLayout({
               <div className='flex gap-1.5 font-medium text-foreground'>
                 <span>All Pre-drive Safety Checks Valid</span>
               </div>
-              <div className='text-muted-foreground'>Scheduled oil & tire maintenance</div>
+              <div className='text-muted-foreground'>Scheduled maintenance in progress</div>
             </CardFooter>
           </Card>
         </div>
 
-        {/* Fleet Dispatch Queue Strip matching Halden decision queue in image 1 & 2 */}
+        {/* Fleet Dispatch Queue Strip - TRUE SQUARE BLOCKS (Halden Decision Queue) */}
         <div className='p-3.5 rounded-lg border border-border/70 bg-card shadow-xs transition-colors'>
           <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2'>
             <div className='flex items-center gap-2'>
-              <span className='size-2 rounded-full bg-emerald-500 animate-pulse' />
+              <span className='size-2 rounded-full bg-amber-500 animate-pulse' />
               <span className='text-sm font-semibold text-foreground tracking-tight'>
                 Fleet Dispatch Queue
               </span>
@@ -260,58 +259,58 @@ export default function OverViewLayout({
             </Link>
           </div>
 
-          {/* Continuous Row of Discrete Square Blocks */}
+          {/* Continuous Row of TRUE SQUARE BLOCKS */}
           <div className='flex items-center gap-[3px] py-1.5 overflow-x-auto no-scrollbar'>
-            {/* 4 urgent return checks pending (coral red) */}
+            {/* 4 urgent return checks pending (warm amber accent like Halden) */}
             {Array.from({ length: 4 }).map((_, i) => (
               <div
                 key={`urgent-${i}`}
-                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-rose-500 hover:bg-rose-400 transition-colors shadow-xs cursor-pointer'
-                title='Return Check Pending (Overdue)'
+                className='size-3 aspect-square rounded-[2px] bg-amber-500 hover:bg-amber-400 transition-colors shadow-xs cursor-pointer'
+                title='Return Check Pending'
               />
             ))}
-            {/* 8 due within 3h / departing soon (amber) */}
+            {/* 8 due within 3h / departing soon (mid zinc) */}
             {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={`warn-${i}`}
-                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-amber-500 hover:bg-amber-400 transition-colors shadow-xs cursor-pointer'
+                className='size-3 aspect-square rounded-[2px] bg-zinc-600 dark:bg-zinc-400 hover:bg-zinc-500 transition-colors shadow-xs cursor-pointer'
                 title='Due within 3h (Departure Prep)'
               />
             ))}
-            {/* 30 active on-track on road (emerald) */}
+            {/* 30 active on-track on road (solid black/white) */}
             {Array.from({ length: 30 }).map((_, i) => (
               <div
                 key={`track-${i}`}
-                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-emerald-500/90 dark:bg-emerald-400 hover:bg-emerald-300 transition-colors shadow-xs cursor-pointer'
+                className='size-3 aspect-square rounded-[2px] bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-700 transition-colors shadow-xs cursor-pointer'
                 title='On Road (Active Telemetry)'
               />
             ))}
-            {/* 6 ready in depot (zinc/muted) */}
+            {/* 6 ready in depot (muted outline) */}
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={`depot-${i}`}
-                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-zinc-400/80 dark:bg-zinc-700/80 hover:bg-zinc-400 transition-colors border border-border/40 cursor-pointer'
+                className='size-3 aspect-square rounded-[2px] bg-zinc-300 dark:bg-zinc-700 hover:bg-zinc-400 transition-colors border border-border/40 cursor-pointer'
                 title='Standby in Depot'
               />
             ))}
           </div>
 
-          {/* Legend Strip matching image 1 & 2 */}
+          {/* Legend Strip with Halden-styled spacing */}
           <div className='flex flex-wrap items-center gap-4 text-xs pt-1 text-muted-foreground'>
             <span className='flex items-center gap-1.5'>
-              <span className='size-2.5 rounded-[2px] bg-rose-500' />
+              <span className='size-2.5 aspect-square rounded-[2px] bg-amber-500' />
               <strong className='font-mono font-semibold text-foreground'>4</strong> return checks pending
             </span>
             <span className='flex items-center gap-1.5'>
-              <span className='size-2.5 rounded-[2px] bg-amber-500' />
+              <span className='size-2.5 aspect-square rounded-[2px] bg-zinc-600 dark:bg-zinc-400' />
               <strong className='font-mono font-semibold text-foreground'>8</strong> departing within 3h
             </span>
             <span className='flex items-center gap-1.5'>
-              <span className='size-2.5 rounded-[2px] bg-emerald-500' />
+              <span className='size-2.5 aspect-square rounded-[2px] bg-zinc-900 dark:bg-zinc-100' />
               <strong className='font-mono font-semibold text-foreground'>30</strong> on track on road
             </span>
             <span className='flex items-center gap-1.5'>
-              <span className='size-2.5 rounded-[2px] bg-zinc-400 dark:bg-zinc-700' />
+              <span className='size-2.5 aspect-square rounded-[2px] bg-zinc-300 dark:bg-zinc-700 border border-border/40' />
               <strong className='font-mono font-semibold text-foreground'>6</strong> standby in depot
             </span>
           </div>

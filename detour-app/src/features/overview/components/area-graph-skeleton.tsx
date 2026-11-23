@@ -11,17 +11,20 @@ export function AreaGraphSkeleton() {
         </div>
         <Skeleton className='h-3.5 w-64 mt-1' />
       </CardHeader>
-      <CardContent className='pt-1 pb-4'>
-        <div className='flex items-end justify-between gap-1.5 h-[190px] pt-4 pb-2 px-3 rounded-lg bg-muted/15 border border-border/40'>
+      <CardContent className='pt-1 pb-3'>
+        <div className='flex items-end justify-between gap-1 pt-3 pb-2 px-3 rounded-lg bg-muted/20 border border-border/40'>
           {Array.from({ length: 15 }).map((_, i) => (
-            <div key={i} className='flex-1 flex flex-col gap-1'>
-              {Array.from({ length: 8 }).map((_, j) => (
-                <Skeleton key={j} className='h-[8px] w-full rounded-[1.5px]' />
-              ))}
+            <div key={i} className='flex-1 flex flex-col items-center gap-1'>
+              <div className='flex flex-col gap-[2px] items-center'>
+                {Array.from({ length: 10 }).map((_, j) => (
+                  <Skeleton key={j} className='size-2.5 aspect-square rounded-[1.5px]' />
+                ))}
+              </div>
+              <Skeleton className='h-2.5 w-3 mt-1' />
             </div>
           ))}
         </div>
-        <div className='mt-3 pt-2.5 border-t border-border/50'>
+        <div className='mt-2.5 pt-2 border-t border-border/40'>
           <Skeleton className='h-4 w-full' />
         </div>
       </CardContent>

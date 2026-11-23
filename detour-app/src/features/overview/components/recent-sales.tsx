@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from '@/components/ui/card';
-import { DETOUR_BOOKINGS } from '@/constants/detour-data';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
@@ -13,7 +11,7 @@ export function RecentRentals() {
     {
       id: 'dsp-1',
       due: '1h 20m to return',
-      dueStatus: 'urgent',
+      isUrgent: true,
       customer: 'Arjun Mehta',
       vehicle: 'Porsche 356 Speedster',
       plate: 'MH-01-CS-1958',
@@ -24,7 +22,7 @@ export function RecentRentals() {
     {
       id: 'dsp-2',
       due: '3h 45m to return',
-      dueStatus: 'warning',
+      isWarning: true,
       customer: 'Rohan Sharma',
       vehicle: 'Ford Mustang Fastback',
       plate: 'DL-03-FA-1967',
@@ -35,7 +33,6 @@ export function RecentRentals() {
     {
       id: 'dsp-3',
       due: 'On Road (Day 2 of 4)',
-      dueStatus: 'normal',
       customer: 'Priya Nambiar',
       vehicle: 'Land Rover Defender 90',
       plate: 'DL-01-LR-2024',
@@ -46,7 +43,6 @@ export function RecentRentals() {
     {
       id: 'dsp-4',
       due: 'On Road (Day 1 of 3)',
-      dueStatus: 'normal',
       customer: 'Siddharth Roy',
       vehicle: 'Alfa Romeo Spider',
       plate: 'GA-02-SP-1972',
@@ -57,7 +53,6 @@ export function RecentRentals() {
     {
       id: 'dsp-5',
       due: 'Departing in 40m',
-      dueStatus: 'departure',
       customer: 'Vikram Joshi',
       vehicle: 'Porsche Taycan 4S Cross',
       plate: 'MH-01-PT-2024',
@@ -103,15 +98,14 @@ export function RecentRentals() {
               key={item.id}
               className='grid grid-cols-12 items-center py-2.5 text-xs hover:bg-muted/30 -mx-2 px-2 rounded-md transition-colors'
             >
-              {/* Due / Status Column */}
+              {/* Due / Status Column - Monochrome with Halden Amber for urgent */}
               <div className='col-span-4 pr-1'>
                 <span
                   className={cn(
                     'font-mono text-[11px] font-semibold block',
-                    item.dueStatus === 'urgent' && 'text-rose-500',
-                    item.dueStatus === 'warning' && 'text-amber-500',
-                    item.dueStatus === 'departure' && 'text-blue-500',
-                    item.dueStatus === 'normal' && 'text-emerald-500'
+                    item.isUrgent && 'text-amber-500 font-bold',
+                    item.isWarning && 'text-foreground font-medium',
+                    !item.isUrgent && !item.isWarning && 'text-muted-foreground'
                   )}
                 >
                   {item.due}
@@ -137,15 +131,14 @@ export function RecentRentals() {
                 {item.amount}
               </div>
 
-              {/* Action Column */}
+              {/* Action Column - Minimalist Monochrome Badge */}
               <div className='col-span-2 text-right'>
                 <span
                   className={cn(
-                    'inline-block text-[10px] font-mono px-1.5 py-0.5 rounded border leading-tight',
-                    item.dueStatus === 'urgent' && 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/30',
-                    item.dueStatus === 'warning' && 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30',
-                    item.dueStatus === 'departure' && 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30',
-                    item.dueStatus === 'normal' && 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                    'inline-block text-[10px] font-mono px-2 py-0.5 rounded border leading-tight',
+                    item.isUrgent
+                      ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30 font-medium'
+                      : 'bg-muted/60 text-foreground border-border/50'
                   )}
                 >
                   {item.action}

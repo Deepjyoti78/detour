@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Icons } from '@/components/icons';
 import { cn } from '@/lib/utils';
@@ -18,75 +18,115 @@ interface DepotData {
 
 const DEPOT_DATA: DepotData[] = [
   { id: 'mumbai', name: 'Mumbai', region: 'West Coast', totalCapacity: 12, onRoad: 10, inDepot: 2, route: 'Lonavala & Western Ghats', revenueToday: 1450 },
-  { id: 'delhi', name: 'Delhi NCR', region: 'North Plains', totalCapacity: 10, onRoad: 9, inDepot: 1, route: 'Taj Expressway & Neemrana', revenueToday: 1280 },
-  { id: 'bengaluru', name: 'Bengaluru', region: 'South Hub', totalCapacity: 8, onRoad: 7, inDepot: 1, route: 'Coorg Hills & Mysore Heritage', revenueToday: 1120 },
+  { id: 'delhi', name: 'Delhi NCR', region: 'North Plains', totalCapacity: 10, onRoad: 9, inDepot: 1, route: 'Taj Scenic Expressway', revenueToday: 1280 },
+  { id: 'bengaluru', name: 'Bengaluru', region: 'South Hub', totalCapacity: 8, onRoad: 7, inDepot: 1, route: 'Coorg Hills & Mysore', revenueToday: 1120 },
   { id: 'goa', name: 'Goa', region: 'Coastal Hub', totalCapacity: 8, onRoad: 8, inDepot: 0, route: 'South Goa Beach Circuit', revenueToday: 1390 },
-  { id: 'jaipur', name: 'Jaipur', region: 'Desert Circuit', totalCapacity: 6, onRoad: 5, inDepot: 1, route: 'Shekhawati Havelis & Thar', revenueToday: 820 },
-  { id: 'portland', name: 'Portland', region: 'Pacific NW', totalCapacity: 8, onRoad: 7, inDepot: 1, route: 'Columbia Gorge & Mt Hood', revenueToday: 1190 },
-  { id: 'hyderabad', name: 'Hyderabad', region: 'Deccan', totalCapacity: 6, onRoad: 4, inDepot: 2, route: 'Ananthagiri Hills Loop', revenueToday: 680 }
+  { id: 'jaipur', name: 'Jaipur', region: 'Desert Circuit', totalCapacity: 6, onRoad: 5, inDepot: 1, route: 'Shekhawati Havelis', revenueToday: 820 },
+  { id: 'portland', name: 'Portland', region: 'Pacific NW', totalCapacity: 8, onRoad: 7, inDepot: 1, route: 'Columbia Gorge Loop', revenueToday: 1190 },
+  { id: 'hyderabad', name: 'Hyderabad', region: 'Deccan', totalCapacity: 6, onRoad: 4, inDepot: 2, route: 'Ananthagiri Hills', revenueToday: 680 }
 ];
 
 export function BarGraph() {
   const [hoveredDepot, setHoveredDepot] = useState<DepotData | null>(null);
-  const [selectedDepot, setSelectedDepot] = useState<string | null>(null);
+  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Maximum capacity across depots to align grid heights
-  const maxCapacity = 14;
-
+  const maxCapacity = 13;
   const totalOnRoad = DEPOT_DATA.reduce((acc, d) => acc + d.onRoad, 0);
   const totalCapacity = DEPOT_DATA.reduce((acc, d) => acc + d.totalCapacity, 0);
   const avgUtilization = ((totalOnRoad / totalCapacity) * 100).toFixed(1);
 
+  const handleColumnEnter = (depot: DepotData, e: React.MouseEvent<HTMLDivElement>) => {
+    setHoveredDepot(depot);
+    if (containerRef.current) {
+      const containerRect = containerRef.current.getBoundingClientRect();
+      const targetRect = e.currentTarget.getBoundingClientRect();
+      setTooltipPos({
+        x: targetRect.left - containerRect.left + targetRect.width / 2,
+        y: targetRect.top - containerRect.top
+      });
+    }
+  };
+
   return (
-    <Card className='border border-border/70 bg-card shadow-xs transition-colors'>
+    <Card className='border border-border/70 bg-card shadow-xs transition-colors relative' ref={containerRef}>
       <CardHeader className='pb-3'>
-        <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-2'>
-          <div>
+        <div className='flex flex-col gap-2'>
+          <div className='flex flex-wrap items-center justify-between gap-2'>
             <CardTitle className='flex items-center gap-2 text-foreground text-sm font-semibold tracking-tight'>
               <Icons.mapPin className='size-4 text-foreground/80' />
               Depot Hub Fleet Distribution
-              <span className='ml-1 inline-flex items-center gap-1 rounded-md bg-emerald-600/90 text-white px-2 py-0.5 text-[11px] font-semibold shadow-xs'>
+              <span className='inline-flex items-center gap-1 rounded-md bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900 px-2 py-0.5 text-[11px] font-mono font-semibold shadow-xs'>
                 <Icons.trendingUp className='size-3' />
-                {avgUtilization}% Average Utilization
+                {avgUtilization}% Utilization
               </span>
             </CardTitle>
-            <CardDescription className='text-xs text-muted-foreground'>
-              Equalizer block matrix of active rentals vs available vehicles by regional hub
-            </CardDescription>
+
+            {/* Clean Spaced Monochrome Legend */}
+            <div className='flex items-center gap-3 text-xs'>
+              <div className='flex items-center gap-1.5'>
+                <span className='size-2.5 aspect-square rounded-[2px] bg-zinc-900 dark:bg-zinc-100 shadow-xs' />
+                <span className='text-muted-foreground text-[11px]'>On Road (Active)</span>
+              </div>
+              <div className='flex items-center gap-1.5'>
+                <span className='size-2.5 aspect-square rounded-[2px] bg-zinc-400 dark:bg-zinc-600 shadow-xs' />
+                <span className='text-muted-foreground text-[11px]'>In Depot (Available)</span>
+              </div>
+              <div className='flex items-center gap-1.5'>
+                <span className='size-2.5 aspect-square rounded-[2px] bg-amber-500 shadow-xs' />
+                <span className='text-muted-foreground text-[11px]'>Sold Out (100%)</span>
+              </div>
+            </div>
           </div>
 
-          {/* Legend Strip matching the reference screenshot */}
-          <div className='flex items-center gap-3 text-xs'>
-            <div className='flex items-center gap-1.5'>
-              <span className='size-2.5 rounded-[2px] bg-emerald-500 shadow-xs' />
-              <span className='text-muted-foreground text-[11px] font-medium'>On Road (Active)</span>
-            </div>
-            <div className='flex items-center gap-1.5'>
-              <span className='size-2.5 rounded-[2px] bg-zinc-400 dark:bg-zinc-600 shadow-xs' />
-              <span className='text-muted-foreground text-[11px] font-medium'>In Depot (Available)</span>
-            </div>
-            <div className='flex items-center gap-1.5'>
-              <span className='size-2.5 rounded-[2px] border border-dashed border-border/60 bg-muted/20' />
-              <span className='text-muted-foreground text-[11px] font-medium'>Unallocated</span>
-            </div>
-          </div>
+          <CardDescription className='text-xs text-muted-foreground'>
+            Equalizer matrix of square blocks representing vehicle slots per regional hub
+          </CardDescription>
         </div>
       </CardHeader>
 
-      <CardContent className='pt-2 pb-4'>
-        {/* Equalizer Tower Matrix */}
-        <div className='relative flex items-end justify-between gap-2 sm:gap-4 pt-4 pb-2 px-1 sm:px-3 rounded-lg bg-muted/15 border border-border/40'>
-          {/* Subtle dotted baseline & threshold line */}
-          <div className='absolute left-3 right-3 top-[30%] border-t border-dashed border-border/40 pointer-events-none' />
+      <CardContent className='pt-1 pb-3'>
+        {/* Floating Tooltip Card matching Halden popup */}
+        {hoveredDepot && tooltipPos && (
+          <div
+            className='absolute z-50 pointer-events-none transition-all duration-75 -translate-x-1/2 -translate-y-full mb-2'
+            style={{ left: `${tooltipPos.x}px`, top: `${tooltipPos.y}px` }}
+          >
+            <div className='bg-zinc-950 text-zinc-100 border border-zinc-800 shadow-2xl rounded-lg p-2.5 min-w-[200px] text-xs animate-in fade-in zoom-in-95'>
+              <div className='flex items-center justify-between border-b border-zinc-800 pb-1 mb-1.5'>
+                <span className='font-bold text-white'>{hoveredDepot.name} Regional Hub</span>
+                <span className='font-mono text-[10px] text-zinc-400'>{hoveredDepot.region}</span>
+              </div>
+              <div className='flex items-center justify-between text-[11px] text-zinc-300'>
+                <span className='font-semibold text-white'>
+                  {Math.round((hoveredDepot.onRoad / hoveredDepot.totalCapacity) * 100)}% Utilization
+                </span>
+                <span className='font-mono text-zinc-400'>
+                  {hoveredDepot.onRoad}/{hoveredDepot.totalCapacity} Cars Active
+                </span>
+              </div>
+              <div className='mt-1.5 pt-1.5 border-t border-zinc-800/80 text-[10px] space-y-1'>
+                <div className='text-zinc-400 truncate'>
+                  Route: <strong className='text-zinc-200'>{hoveredDepot.route}</strong>
+                </div>
+                <div className='flex items-center justify-between text-zinc-400 font-mono'>
+                  <span>Today's Revenue</span>
+                  <span className='font-bold text-white'>+${hoveredDepot.revenueToday}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
+        {/* Equalizer Grid with STRICT SQUARES */}
+        <div className='flex items-end justify-between gap-2 sm:gap-4 pt-3 pb-2 px-2 sm:px-4 rounded-lg bg-muted/20 border border-border/40'>
           {DEPOT_DATA.map((depot) => {
-            const isHovered = (hoveredDepot?.id === depot.id) || (selectedDepot === depot.id);
+            const isHovered = hoveredDepot?.id === depot.id;
             const utilization = Math.round((depot.onRoad / depot.totalCapacity) * 100);
             const isSoldOut = depot.onRoad === depot.totalCapacity;
 
-            // Render array of blocks from top (maxCapacity) down to 1
             const blocks = Array.from({ length: maxCapacity }, (_, i) => {
-              const blockIndexFromBottom = i + 1; // 1 to 14
+              const blockIndexFromBottom = i + 1;
               const isOverCapacity = blockIndexFromBottom > depot.totalCapacity;
               const isOnRoad = blockIndexFromBottom <= depot.onRoad;
               const isInDepot = !isOnRoad && blockIndexFromBottom <= depot.totalCapacity;
@@ -97,39 +137,38 @@ export function BarGraph() {
                 isOnRoad,
                 isInDepot
               };
-            }).reverse(); // Stack visual: top is highest index
+            }).reverse();
 
             return (
               <div
                 key={depot.id}
                 className={cn(
-                  'flex-1 flex flex-col items-center group cursor-pointer transition-all duration-150 p-1 rounded-md',
-                  isHovered ? 'bg-muted/60 ring-1 ring-border/80' : 'hover:bg-muted/30'
+                  'flex-1 flex flex-col items-center group cursor-pointer transition-all duration-100 p-1 rounded-md',
+                  isHovered ? 'bg-muted/70 ring-1 ring-border/80' : 'hover:bg-muted/30'
                 )}
-                onMouseEnter={() => setHoveredDepot(depot)}
+                onMouseEnter={(e) => handleColumnEnter(depot, e)}
                 onMouseLeave={() => setHoveredDepot(null)}
-                onClick={() => setSelectedDepot(selectedDepot === depot.id ? null : depot.id)}
               >
-                {/* Top Quick Utilization Badge */}
+                {/* Quick Utilization Percentage Header */}
                 <span
                   className={cn(
                     'font-mono text-[10px] font-semibold mb-1.5 transition-colors',
                     isSoldOut
-                      ? 'text-emerald-600 dark:text-emerald-400 font-bold'
+                      ? 'text-amber-500 font-bold'
                       : 'text-muted-foreground group-hover:text-foreground'
                   )}
                 >
                   {utilization}%
                 </span>
 
-                {/* Stack of Discrete Blocks (Equalizer Column) */}
-                <div className='w-full max-w-[34px] flex flex-col gap-[3px] py-1'>
+                {/* Vertical Stack of TRUE SQUARE BLOCKS */}
+                <div className='flex flex-col gap-[2.5px] py-1 items-center'>
                   {blocks.map(({ index, isOverCapacity, isOnRoad, isInDepot }) => {
                     if (isOverCapacity) {
                       return (
                         <div
                           key={index}
-                          className='h-2.5 w-full rounded-[2px] border border-dashed border-border/20 bg-transparent opacity-10'
+                          className='size-3 sm:size-3.5 aspect-square rounded-[2px] border border-dashed border-border/20 bg-transparent opacity-10'
                         />
                       );
                     }
@@ -138,11 +177,11 @@ export function BarGraph() {
                         <div
                           key={index}
                           className={cn(
-                            'h-2.5 w-full rounded-[2px] transition-all duration-150 shadow-xs',
+                            'size-3 sm:size-3.5 aspect-square rounded-[2px] transition-all duration-100 shadow-xs',
                             isSoldOut
-                              ? 'bg-emerald-500 hover:bg-emerald-400'
-                              : 'bg-emerald-500 dark:bg-emerald-400 hover:bg-emerald-300',
-                            isHovered && 'scale-105 brightness-110'
+                              ? 'bg-amber-500 hover:bg-amber-400'
+                              : 'bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-700',
+                            isHovered && 'scale-115 brightness-110'
                           )}
                         />
                       );
@@ -152,8 +191,8 @@ export function BarGraph() {
                         <div
                           key={index}
                           className={cn(
-                            'h-2.5 w-full rounded-[2px] transition-all duration-150 bg-zinc-400/80 dark:bg-zinc-600 hover:bg-zinc-400 border border-zinc-500/30',
-                            isHovered && 'scale-105'
+                            'size-3 sm:size-3.5 aspect-square rounded-[2px] transition-all duration-100 bg-zinc-400 dark:bg-zinc-600 hover:bg-zinc-300',
+                            isHovered && 'scale-115'
                           )}
                         />
                       );
@@ -162,7 +201,7 @@ export function BarGraph() {
                   })}
                 </div>
 
-                {/* Depot Label at Bottom */}
+                {/* Clean Bottom Label */}
                 <div className='mt-2 text-center w-full'>
                   <span className='block text-xs font-semibold text-foreground truncate'>
                     {depot.name}
@@ -176,38 +215,15 @@ export function BarGraph() {
           })}
         </div>
 
-        {/* Dynamic Telemetry & Inspection Bar */}
-        <div className='mt-3 pt-2.5 border-t border-border/50 min-h-[46px] flex items-center justify-between text-xs'>
-          {hoveredDepot ? (
-            <div className='flex items-center justify-between w-full animate-in fade-in duration-100'>
-              <div className='flex items-center gap-2'>
-                <span className='size-2 rounded-full bg-emerald-500' />
-                <span className='font-bold text-foreground'>{hoveredDepot.name} Regional Hub</span>
-                <span className='text-muted-foreground font-mono text-[11px]'>({hoveredDepot.region})</span>
-              </div>
-              <div className='flex items-center gap-3 font-mono text-[11px]'>
-                <span className='text-muted-foreground'>
-                  Primary: <strong className='text-foreground'>{hoveredDepot.route}</strong>
-                </span>
-                <span className='bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded font-bold'>
-                  {hoveredDepot.onRoad} Rented · {hoveredDepot.inDepot} Available
-                </span>
-                <span className='font-bold text-foreground'>
-                  +${hoveredDepot.revenueToday} today
-                </span>
-              </div>
-            </div>
-          ) : (
-            <div className='flex items-center justify-between w-full text-muted-foreground text-[11px]'>
-              <span className='flex items-center gap-1.5'>
-                <Icons.info className='size-3.5 text-muted-foreground/70' />
-                Each column block represents 1 vehicle in the depot fleet capacity. Hover to view hub operations.
-              </span>
-              <span className='font-mono text-[10px] font-semibold text-emerald-600 dark:text-emerald-400'>
-                Goa Hub Sold Out (100%)
-              </span>
-            </div>
-          )}
+        {/* Bottom persistent info text */}
+        <div className='mt-2.5 pt-2 border-t border-border/40 flex items-center justify-between text-[11px] text-muted-foreground'>
+          <span className='flex items-center gap-1.5'>
+            <Icons.info className='size-3 text-muted-foreground/70' />
+            1 block = 1 vehicle. Hover columns to view hub telemetry popover card.
+          </span>
+          <span className='font-mono text-[10px] font-semibold text-amber-500'>
+            Goa Hub Sold Out (100%)
+          </span>
         </div>
       </CardContent>
     </Card>

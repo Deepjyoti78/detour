@@ -11,21 +11,21 @@ export function BarGraphSkeleton() {
         </div>
         <Skeleton className='h-3.5 w-64 mt-1' />
       </CardHeader>
-      <CardContent className='pt-2 pb-4'>
-        <div className='flex items-end justify-between gap-3 pt-4 pb-2 px-3 rounded-lg bg-muted/15 border border-border/40'>
+      <CardContent className='pt-1 pb-3'>
+        <div className='flex items-end justify-between gap-3 pt-3 pb-2 px-3 rounded-lg bg-muted/20 border border-border/40'>
           {Array.from({ length: 7 }).map((_, i) => (
             <div key={i} className='flex-1 flex flex-col items-center gap-1.5'>
               <Skeleton className='h-3 w-6' />
-              <div className='w-full max-w-[34px] flex flex-col gap-1 py-1'>
-                {Array.from({ length: 10 }).map((_, j) => (
-                  <Skeleton key={j} className='h-2.5 w-full rounded-[2px]' />
+              <div className='flex flex-col gap-[2.5px] py-1 items-center'>
+                {Array.from({ length: 11 }).map((_, j) => (
+                  <Skeleton key={j} className='size-3 sm:size-3.5 aspect-square rounded-[2px]' />
                 ))}
               </div>
               <Skeleton className='h-3.5 w-12 mt-1' />
             </div>
           ))}
         </div>
-        <div className='mt-3 pt-2.5 border-t border-border/50'>
+        <div className='mt-2.5 pt-2 border-t border-border/40'>
           <Skeleton className='h-4 w-full' />
         </div>
       </CardContent>
