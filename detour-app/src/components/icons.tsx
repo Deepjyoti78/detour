@@ -1,5 +1,6 @@
 import {
   IconAdjustmentsHorizontal,
+  IconActivity,
   IconAlertCircle,
   IconAlertTriangle,
   IconArrowRight,
@@ -214,6 +215,8 @@ export const Icons = {
   lock: IconLock,
 
   // Data / Charts
+  activity: IconActivity,
+  layers: IconStack2,
   trendingDown: IconTrendingDown,
   trendingUp: IconTrendingUp,
   eyeOff: IconEyeOff,

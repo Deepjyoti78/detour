@@ -13,6 +13,37 @@ import { Icons } from '@/components/icons';
 import React from 'react';
 import Link from 'next/link';
 
+// Mini Equalizer Sparkline matching Halden KPI cards
+function MiniBlockSparkline({
+  heights,
+  activeColor = 'bg-emerald-500'
+}: {
+  heights: number[];
+  activeColor?: string;
+}) {
+  return (
+    <div className='flex items-end gap-[2px] h-7 px-1.5 py-1 rounded-md bg-muted/40 border border-border/40'>
+      {heights.map((h, colIdx) => (
+        <div key={colIdx} className='w-1.5 flex flex-col justify-end gap-[1.5px] h-full'>
+          {Array.from({ length: 4 }).map((_, cellIdx) => {
+            // 4 cells high: cell 0 is top, cell 3 is bottom
+            const isFilled = 3 - cellIdx < h;
+            return (
+              <div
+                key={cellIdx}
+                className={cn(
+                  'h-1 w-full rounded-[1px] transition-colors',
+                  isFilled ? activeColor : 'bg-muted/60 dark:bg-muted/40'
+                )}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function OverViewLayout({
   sales,
   pie_stats,
@@ -93,7 +124,7 @@ export default function OverViewLayout({
           </span>
         </div>
 
-        {/* Primary KPI Stats Cards - Sleek Monochrome with Solid Contrast Badges */}
+        {/* Primary KPI Stats Cards with Mini Block Sparklines (Halden Style) */}
         <div className='grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4'>
           {/* Card 1: Fleet Utilization */}
           <Card className='@container/card border border-border/70 bg-gradient-to-b from-card to-card/60 shadow-xs'>
@@ -102,9 +133,12 @@ export default function OverViewLayout({
                 <span>Fleet Utilization Rate</span>
                 <Icons.gauge className='size-4 text-muted-foreground/70' />
               </CardDescription>
-              <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
-                88.4%
-              </CardTitle>
+              <div className='flex items-baseline justify-between mt-1'>
+                <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
+                  88.4%
+                </CardTitle>
+                <MiniBlockSparkline heights={[2, 3, 3, 4, 4]} activeColor='bg-emerald-500' />
+              </div>
               <CardAction>
                 <span className='inline-flex items-center gap-1 rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
                   <Icons.trendingUp className='size-3 text-white' />
@@ -127,9 +161,12 @@ export default function OverViewLayout({
                 <span>Monthly Rental Revenue</span>
                 <Icons.receipt className='size-4 text-muted-foreground/70' />
               </CardDescription>
-              <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
-                $148,920
-              </CardTitle>
+              <div className='flex items-baseline justify-between mt-1'>
+                <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
+                  $148,920
+                </CardTitle>
+                <MiniBlockSparkline heights={[2, 2, 3, 3, 4]} activeColor='bg-amber-500' />
+              </div>
               <CardAction>
                 <span className='inline-flex items-center gap-1 rounded-md bg-emerald-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
                   <Icons.trendingUp className='size-3 text-white' />
@@ -152,9 +189,12 @@ export default function OverViewLayout({
                 <span>Active Trips on Road</span>
                 <Icons.steeringWheel className='size-4 text-muted-foreground/70' />
               </CardDescription>
-              <CardTitle className='text-2xl lg:text-3xl font-bold tabular-nums text-foreground tracking-tight whitespace-nowrap'>
-                36 Trips
-              </CardTitle>
+              <div className='flex items-baseline justify-between mt-1'>
+                <CardTitle className='text-2xl lg:text-3xl font-bold tabular-nums text-foreground tracking-tight whitespace-nowrap'>
+                  36 Trips
+                </CardTitle>
+                <MiniBlockSparkline heights={[3, 3, 4, 3, 4]} activeColor='bg-blue-500' />
+              </div>
               <CardAction>
                 <span className='inline-flex items-center rounded-md bg-blue-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
                   8 Returns Today
@@ -176,9 +216,12 @@ export default function OverViewLayout({
                 <span>Fleet Readiness & Health</span>
                 <Icons.shieldCheck className='size-4 text-muted-foreground/70' />
               </CardDescription>
-              <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
-                98.2%
-              </CardTitle>
+              <div className='flex items-baseline justify-between mt-1'>
+                <CardTitle className='text-3xl font-bold tabular-nums text-foreground tracking-tight'>
+                  98.2%
+                </CardTitle>
+                <MiniBlockSparkline heights={[4, 4, 4, 3, 4]} activeColor='bg-emerald-500' />
+              </div>
               <CardAction>
                 <span className='inline-flex items-center rounded-md bg-amber-600 px-2 py-0.5 text-xs font-semibold text-white shadow-xs'>
                   2 In Service
@@ -192,6 +235,86 @@ export default function OverViewLayout({
               <div className='text-muted-foreground'>Scheduled oil & tire maintenance</div>
             </CardFooter>
           </Card>
+        </div>
+
+        {/* Fleet Dispatch Queue Strip matching Halden decision queue in image 1 & 2 */}
+        <div className='p-3.5 rounded-lg border border-border/70 bg-card shadow-xs transition-colors'>
+          <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2'>
+            <div className='flex items-center gap-2'>
+              <span className='size-2 rounded-full bg-emerald-500 animate-pulse' />
+              <span className='text-sm font-semibold text-foreground tracking-tight'>
+                Fleet Dispatch Queue
+              </span>
+              <span className='font-mono text-xs text-muted-foreground'>
+                48 vehicles · 42 on road · 6 in depot
+              </span>
+            </div>
+            <Link
+              href='/dashboard/bookings'
+              className={cn(
+                buttonVariants({ variant: 'outline', size: 'sm' }),
+                'h-7 text-xs border-border/60 hover:bg-muted font-medium'
+              )}
+            >
+              Start Dispatch Review
+            </Link>
+          </div>
+
+          {/* Continuous Row of Discrete Square Blocks */}
+          <div className='flex items-center gap-[3px] py-1.5 overflow-x-auto no-scrollbar'>
+            {/* 4 urgent return checks pending (coral red) */}
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={`urgent-${i}`}
+                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-rose-500 hover:bg-rose-400 transition-colors shadow-xs cursor-pointer'
+                title='Return Check Pending (Overdue)'
+              />
+            ))}
+            {/* 8 due within 3h / departing soon (amber) */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={`warn-${i}`}
+                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-amber-500 hover:bg-amber-400 transition-colors shadow-xs cursor-pointer'
+                title='Due within 3h (Departure Prep)'
+              />
+            ))}
+            {/* 30 active on-track on road (emerald) */}
+            {Array.from({ length: 30 }).map((_, i) => (
+              <div
+                key={`track-${i}`}
+                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-emerald-500/90 dark:bg-emerald-400 hover:bg-emerald-300 transition-colors shadow-xs cursor-pointer'
+                title='On Road (Active Telemetry)'
+              />
+            ))}
+            {/* 6 ready in depot (zinc/muted) */}
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={`depot-${i}`}
+                className='h-3 flex-1 min-w-[8px] max-w-[15px] rounded-[2px] bg-zinc-400/80 dark:bg-zinc-700/80 hover:bg-zinc-400 transition-colors border border-border/40 cursor-pointer'
+                title='Standby in Depot'
+              />
+            ))}
+          </div>
+
+          {/* Legend Strip matching image 1 & 2 */}
+          <div className='flex flex-wrap items-center gap-4 text-xs pt-1 text-muted-foreground'>
+            <span className='flex items-center gap-1.5'>
+              <span className='size-2.5 rounded-[2px] bg-rose-500' />
+              <strong className='font-mono font-semibold text-foreground'>4</strong> return checks pending
+            </span>
+            <span className='flex items-center gap-1.5'>
+              <span className='size-2.5 rounded-[2px] bg-amber-500' />
+              <strong className='font-mono font-semibold text-foreground'>8</strong> departing within 3h
+            </span>
+            <span className='flex items-center gap-1.5'>
+              <span className='size-2.5 rounded-[2px] bg-emerald-500' />
+              <strong className='font-mono font-semibold text-foreground'>30</strong> on track on road
+            </span>
+            <span className='flex items-center gap-1.5'>
+              <span className='size-2.5 rounded-[2px] bg-zinc-400 dark:bg-zinc-700' />
+              <strong className='font-mono font-semibold text-foreground'>6</strong> standby in depot
+            </span>
+          </div>
         </div>
 
         {/* Visual Analytics Grid */}
