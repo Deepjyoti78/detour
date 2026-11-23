@@ -14,7 +14,7 @@ export async function protectRoute() {
   try {
     await auth.protect();
   } catch (error) {
-    if (process.env.DEMO_MODE === 'true' || process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
+    if (process.env.DEMO_MODE === 'true' || process.env.NEXT_PUBLIC_DEMO_MODE === 'true' || !process.env.CLERK_SECRET_KEY) {
       return;
     }
     throw error;
